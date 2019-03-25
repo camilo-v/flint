@@ -26,6 +26,17 @@ Please note that the following steps, and screenshots, all assume that you have 
 
 ![AWS Console][image-1]
 
+In the management console main page, you can search for “EMR”; this will take you to the EMR dashboard, which will load with the clusters you have created (if any). Click on the “**Create Cluster**” button to start.
+
+![EMR Dashboard][image-2]
+
+This will take you to the “**Create Cluster - Quick Options**” configuration page. You can launch a cluster in this page right away, but we’ll go ahead and click on “**Go to advanced options**” link to launch a cluster with some specific changes required for Flint.
+
+![Advanced Options][image-3]
+
+
+
+
 ### Publication
 Flint can be referenced by using the citation:
 
@@ -35,3 +46,5 @@ Flint can be referenced by using the citation:
 [8]:	https://aws.amazon.com/console/ "AWS Management Console"
 
 [image-1]:	images/aws-console.png "AWS Console"
+[image-2]:	images/emr-1.png "EMR Dashboard"
+[image-3]:	images/emr-2.png "Advanced Options"
