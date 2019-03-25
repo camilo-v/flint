@@ -24,7 +24,7 @@ Flint is currently optimized for running on AWS, and on the EMR service specific
 
 Please note that the following steps, and screenshots, all assume that you have successfully signed into your [AWS Management Console][8].
 
-![aws console]()(/images/aws-console.png “AWS Console”)
+![aws console]()(images/aws-console.png “AWS Console”)
 
 
 ---- 
