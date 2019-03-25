@@ -28,34 +28,26 @@ Flint is designed to run on [Apache Spark](https://spark.apache.org), but the cu
 
 The basic requirements for the worker nodes are:
 
+- [Bowtie, v.2.3.4.1](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
 - [Python](https://www.python.org)
 - [BioPython](https://biopython.org)
 - [Pandas](https://pandas.pydata.org)
 - [Fabric](http://www.fabfile.org)
 - [Boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)
-
-You will need a reasonably modern computer and operating system that can support the above.
-
-### Requirement Package 1
-
-[Some Package](http://somePackageURLgoesHere) is required for SOMETHING.  See the [package documentation](http://packageDocsURLgoesHere) for more information.
-
-### Requirement Package 2
-
-[Some Package](http://somePackageURLgoesHere) is required for SOMETHING.  See the [package documentation](http://packageDocsURLgoesHere) for more information.
-
-### Requirement Package 3
-
-[Some Package](http://somePackageURLgoesHere) is required for SOMETHING.  See the [package documentation](http://packageDocsURLgoesHere) for more information.  In addition, you will also need the following subpackages:
-
-- [subpackage 1](http://someURLGoes.here/)
-- [subpackage 2](http://someURLGoes.here/)
-- [subpackage 3](http://someURLGoes.here/)
-- [subpackage 4](http://someURLGoes.here/)
-- [subpackage 5](http://someURLGoes.here/)
-- [subpackage 6](http://someURLGoes.here/)
+- [csv](https://docs.python.org/3/library/csv.html)
+- [pathlib2](https://pypi.org/project/pathlib2/)
+- [shlex](https://docs.python.org/3/library/shlex.html)
+- [pickle](https://docs.python.org/3/library/pickle.html)
+- [subprocess](https://docs.python.org/2/library/subprocess.html)
 
 
+### Bowtie2
+
+[Bowtie](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) is required for the aligment step, and needs to be installed in all worker nodes of the Spark Cluster.  See the [Bowtie2 manual](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) for more information.
+
+### Python Packages
+
+The remaining requirements are python packages that Flint needs for a successfull run, please refer to the package's documentation for instructions and/or installation instructions.
 
 ## Contact
 
