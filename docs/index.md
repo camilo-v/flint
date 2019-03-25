@@ -25,9 +25,8 @@ Flint is currently optimized for running on AWS, and on the EMR service specific
 Please note that the following steps, and screenshots, all assume that you have successfully signed into your [AWS Management Console][8].
 
 ![aws console]()(images/aws-console.png “AWS Console”)
+![AWS Console][image-1]
 
-
----- 
 ### Publication
 Flint can be referenced by using the citation:
 
@@ -35,3 +34,6 @@ Flint can be referenced by using the citation:
 
 [7]:	https://aws.amazon.com/getting-started/ "Getting Started with AWS"
 [8]:	https://aws.amazon.com/console/ "AWS Management Console"
+
+
+[image-1]:	images/aws-console.png "AWS Console"
