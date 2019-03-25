@@ -1,13 +1,15 @@
- # Flint (AWS)
+ # Flint
 
-Main repository of the Flint project for Amazon Web Services. Lorem ipsum dolor sit amet, tollit lucilius vis an. Placerat imperdiet ei qui, usu ei ipsum laboramus deterruisset. Id veri sonet qui. Ius in indoctum explicari, ei nec fastidii invenire. Eu exerci intellegam his, in fastidii mnesarchum persequeris qui. Ne has prima utinam pertinacia. Mei invidunt postulant et, ne pri diam illum.
+This is the ,ain repository of the Flint project for Amazon Web Services. Flint is a metagenomics profiling pipeline that is built on top of the [Apache Spark](https://spark.apache.org) framework, and is designed for fast real-time profiling of metagenomic samples against a large collection of reference genomes. Flint takes advantage of Spark's built-in parallelism and streaming engine architecture to quickly map reads against a large reference collection of bacterial genomes.
 
-Ei sit facilis cotidieque, eam probo postulant ex, has ea minim dictas. Amet mnesarchum an vel, stet perfecto ut nam, ludus vituperatoribus pri id. Luptatum electram sea ne. Eu aeque pericula his.
+Our computational framework is primarily implemented using the MapReduce model, and deployed in a cluster launched using the [Elastic Map Reduce](https://aws.amazon.com/emr/) service offered by AWS ([Amazon Web Services](https://aws.amazon.com)). The cluster consists of multiple commodity worker machines (computational nodes), and in the current configuration of the cluster that we use, each worker machine cosists of 15 GB of RAM, 8 vCPUs (a hyperthread of a single Intel Xeon core), and 100 GB of EBS disk storage. Each of the worker nodes will work in parallel to align the input sequencing DNA reads to a partitioned shard of the reference database; after the alignment step is completed, each worker node acts as a regular Spark executor node.
+
+The current database for running Flint is version 41 from [Ensembl Bacteria](https://bacteria.ensembl.org/index.html), but we are currently working on the latest version of [RefSeq](https://www.ncbi.nlm.nih.gov/refseq/), which should be available this summer.
 
 
 ## How To Get Started
 
-- [Download the Code](https://github.com/camilo-v/flint-aws) and follow the standard instructions on how to install the framework/library.
+- [Download the Code](https://github.com/camilo-v/flint) and follow the instructions on how to create an EMR cluster, setup the streaming source, and start Flint.
 
 ## Communication
 
@@ -16,13 +18,21 @@ Ei sit facilis cotidieque, eam probo postulant ex, has ea minim dictas. Amet mne
 - If you **would like to contribute**, please submit a pull request.
 
 ## Requirements
+Flint is designed to run on [Apache Spark](https://spark.apache.org), but the current implementation is tuned for Amazon's EMR [Elastic Map Reduce](https://aws.amazon.com/emr/). The basic requrements for an [EMR](https://aws.amazon.com/emr/) cluster are:
 
-The basic requirements for the software are:
+- [Apache Hadoop](https://hadoop.apache.org)
+- [Apache Spark](https://spark.apache.org)
+- [Ganglia](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-ganglia.html)
+- [Hue](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-hue.html)
+- [Hive](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-hive.html)
 
-- Requirement 1
-- Requirement 2
-- Requirement 3
-- Requirement 4
+The basic requirements for the worker nodes are:
+
+- [Python](https://www.python.org)
+- [BioPython](https://biopython.org)
+- [Pandas](https://pandas.pydata.org)
+- [Fabric](http://www.fabfile.org)
+- [Boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)
 
 You will need a reasonably modern computer and operating system that can support the above.
 
