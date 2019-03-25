@@ -10,6 +10,7 @@ The current database for running Flint is version 41 from [Ensembl Bacteria][4],
 **Valdes**, **Stebliankin**, **Narasimhan** (2019), Large Scale Microbiome Profiling in the Cloud, _ISMB 2019, in review_.
 
 
+
 ## How To Get Started
 
 - [Download the Code][6] and follow the instructions on how to create an EMR cluster, setup the streaming source, and start Flint.
