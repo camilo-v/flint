@@ -19,12 +19,13 @@ A Flint project consists of multiple pieces:
 
 The following section(s) contain details on each of the above. If you have any questions, comments, and/or queries, please get in touch with the project’s maintainer linked at the footer of this page.
 
+## EMR Cluster
+
+
+
+---- 
 ### Publication
 Flint can be referenced by using the citation:
 
 **Valdes**, **Stebliankin**, **Narasimhan** (2019), Large Scale Microbiome Profiling in the Cloud, _ISMB 2019, in review_.
-
----- 
-
-## EMR Cluster
 
