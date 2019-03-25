@@ -21,6 +21,7 @@ The following section(s) contain details on each of the above. If you have any q
 
 ### Publication
 Flint can be referenced by using the citation:
+
 **Valdes**, **Stebliankin**, **Narasimhan** (2019), Large Scale Microbiome Profiling in the Cloud, _ISMB 2019, in review_.
 
 ---- 
