@@ -1,3 +1,17 @@
 theme: jekyll-theme-cayman
 title: Flint
 description: Flint project page for Spark and Amazon EMR.
+
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+#
+#   List of links in the navigation bar
+#
+navbar-links:
+  About: "http://biorg.cs.fiu.edu"
+  Resources:
+    - Main Repo: "https://github.com/camilo-v"
+    - Installation: "installation"
+    - Manual: "manual"
+  Author's home: "https://www.castflyer.com"
