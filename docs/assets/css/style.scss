@@ -3,6 +3,3 @@
 
 @import "{{ site.theme }}";
 
-.page-heading {
-  @include relative-font-size(1.25);
-}
