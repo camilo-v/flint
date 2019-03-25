@@ -9,7 +9,7 @@ The current database for running Flint is version 41 from [Ensembl Bacteria][4],
 ### Publications
 **Valdes**, **Stebliankin**, **Narasimhan** (2019), Large Scale Microbiome Profiling in the Cloud, _ISMB 2019, in review_.
 
-
+\<br/\>
 
 ## How To Get Started
 
