@@ -23,7 +23,7 @@ The current database for running Flint is version 41 from [Ensembl Bacteria][4],
 - If you **would like to contribute**, please submit a pull request.
 
 ## Requirements
-Flint is designed to run on [Apache Spark][11], but the current implementation is tuned for Amazon's EMR [Elastic Map Reduce][12]. The basic requrements for an [EMR][13] cluster are:
+Flint is designed to run on [Apache Spark][11], but the current implementation is tuned for Amazon's EMR [Elastic Map Reduce][12]. The basic requirements for an [EMR][13] cluster are:
 
 - [Apache Hadoop][14]
 - [Apache Spark][15]
@@ -48,11 +48,11 @@ The basic requirements for the worker nodes are:
 
 ### Bowtie2
 
-[Bowtie][30] is required for the aligment step, and needs to be installed in all worker nodes of the Spark Cluster.  See the [Bowtie2 manual][31] for more information.
+[Bowtie][30] is required for the alignment step, and needs to be installed in all worker nodes of the Spark Cluster.  See the [Bowtie2 manual][31] for more information.
 
 ### Python Packages
 
-The remaining requirements are python packages that Flint needs for a successfull run, please refer to the package's documentation for instructions and/or installation instructions.
+The remaining requirements are python packages that Flint needs for a successful run, please refer to the package's documentation for instructions and/or installation instructions.
 
 ## Contact
 
