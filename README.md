@@ -13,7 +13,8 @@ The current database for running Flint is version 41 from [Ensembl Bacteria][4],
 
 ## How To Get Started
 
-- [Download the Code][6] and follow the instructions on how to create an EMR cluster, setup the streaming source, and start Flint.
+- [Download the Code][6] and [follow the instructions][7] on how to create an EMR cluster, setup the streaming source, and start Flint.
+- Detailed instructions, as well as a manual and reference, can be found at the [project’s website][8].
 
 ## Communication
 
@@ -22,32 +23,32 @@ The current database for running Flint is version 41 from [Ensembl Bacteria][4],
 - If you **would like to contribute**, please submit a pull request.
 
 ## Requirements
-Flint is designed to run on [Apache Spark][7], but the current implementation is tuned for Amazon's EMR [Elastic Map Reduce][8]. The basic requrements for an [EMR][9] cluster are:
+Flint is designed to run on [Apache Spark][9], but the current implementation is tuned for Amazon's EMR [Elastic Map Reduce][10]. The basic requrements for an [EMR][11] cluster are:
 
-- [Apache Hadoop][10]
-- [Apache Spark][11]
-- [Ganglia][12]
-- [Hue][13]
-- [Hive][14]
+- [Apache Hadoop][12]
+- [Apache Spark][13]
+- [Ganglia][14]
+- [Hue][15]
+- [Hive][16]
 
 The basic requirements for the worker nodes are:
 
-- [Bowtie, v.2.3.4.1][15]
-- [Python][16]
-- [BioPython][17]
-- [Pandas][18]
-- [Fabric][19]
-- [Boto3][20]
-- [csv][21]
-- [pathlib2][22]
-- [shlex][23]
-- [pickle][24]
-- [subprocess][25]
+- [Bowtie, v.2.3.4.1][17]
+- [Python][18]
+- [BioPython][19]
+- [Pandas][20]
+- [Fabric][21]
+- [Boto3][22]
+- [csv][23]
+- [pathlib2][24]
+- [shlex][25]
+- [pickle][26]
+- [subprocess][27]
 
 
 ### Bowtie2
 
-[Bowtie][26] is required for the aligment step, and needs to be installed in all worker nodes of the Spark Cluster.  See the [Bowtie2 manual][27] for more information.
+[Bowtie][28] is required for the aligment step, and needs to be installed in all worker nodes of the Spark Cluster.  See the [Bowtie2 manual][29] for more information.
 
 ### Python Packages
 
@@ -55,22 +56,22 @@ The remaining requirements are python packages that Flint needs for a successful
 
 ## Contact
 
-Contact [Camilo Valdes][28] for pull requests, bug reports, good jokes and coffee recipes.
+Contact [Camilo Valdes][30] for pull requests, bug reports, good jokes and coffee recipes.
 
 ### Maintainers
 
-- [Camilo Valdes][29]
+- [Camilo Valdes][31]
 
 
 ### Collaborators
 
-- [Giri Narasimhan][30]
-- [Vitalii Stebliankin][31]
+- [Giri Narasimhan][32]
+- [Vitalii Stebliankin][33]
 
 
 ## License
 
-The software in this repository is available under the [MIT License][32].  See the [LICENSE][33] file for more information.
+The software in this repository is available under the [MIT License][34].  See the [LICENSE][35] file for more information.
 
 [1]:	https://spark.apache.org
 [2]:	https://aws.amazon.com/emr/
@@ -78,30 +79,32 @@ The software in this repository is available under the [MIT License][32].  See t
 [4]:	https://bacteria.ensembl.org/index.html
 [5]:	https://www.ncbi.nlm.nih.gov/refseq/
 [6]:	https://github.com/camilo-v/flint
-[7]:	https://spark.apache.org
-[8]:	https://aws.amazon.com/emr/
-[9]:	https://aws.amazon.com/emr/
-[10]:	https://hadoop.apache.org
-[11]:	https://spark.apache.org
-[12]:	https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-ganglia.html
-[13]:	https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-hue.html
-[14]:	https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-hive.html
-[15]:	http://bowtie-bio.sourceforge.net/bowtie2/index.shtml
-[16]:	https://www.python.org
-[17]:	https://biopython.org
-[18]:	https://pandas.pydata.org
-[19]:	http://www.fabfile.org
-[20]:	https://boto3.amazonaws.com/v1/documentation/api/latest/index.html
-[21]:	https://docs.python.org/3/library/csv.html
-[22]:	https://pypi.org/project/pathlib2/
-[23]:	https://docs.python.org/3/library/shlex.html
-[24]:	https://docs.python.org/3/library/pickle.html
-[25]:	https://docs.python.org/2/library/subprocess.html
-[26]:	http://bowtie-bio.sourceforge.net/bowtie2/index.shtml
-[27]:	http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml
-[28]:	mailto:camilo@castflyer.com
-[29]:	mailto:camilo@castflyer.com
-[30]:	mailto:giri@cs.fiu.edu
-[31]:	mailto:vsteb002@fiu.edu
-[32]:	https://github.com/camilo-v/flint-aws/blob/master/LICENSE
-[33]:	https://github.com/camilo-v/flint-aws/blob/master/LICENSE
+[7]:	https://camilo-v.github.io/flint/ "Manual"
+[8]:	https://camilo-v.github.io/flint/ "Flint Project"
+[9]:	https://spark.apache.org
+[10]:	https://aws.amazon.com/emr/
+[11]:	https://aws.amazon.com/emr/
+[12]:	https://hadoop.apache.org
+[13]:	https://spark.apache.org
+[14]:	https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-ganglia.html
+[15]:	https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-hue.html
+[16]:	https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-hive.html
+[17]:	http://bowtie-bio.sourceforge.net/bowtie2/index.shtml
+[18]:	https://www.python.org
+[19]:	https://biopython.org
+[20]:	https://pandas.pydata.org
+[21]:	http://www.fabfile.org
+[22]:	https://boto3.amazonaws.com/v1/documentation/api/latest/index.html
+[23]:	https://docs.python.org/3/library/csv.html
+[24]:	https://pypi.org/project/pathlib2/
+[25]:	https://docs.python.org/3/library/shlex.html
+[26]:	https://docs.python.org/3/library/pickle.html
+[27]:	https://docs.python.org/2/library/subprocess.html
+[28]:	http://bowtie-bio.sourceforge.net/bowtie2/index.shtml
+[29]:	http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml
+[30]:	mailto:camilo@castflyer.com
+[31]:	mailto:camilo@castflyer.com
+[32]:	mailto:giri@cs.fiu.edu
+[33]:	mailto:vsteb002@fiu.edu
+[34]:	https://github.com/camilo-v/flint-aws/blob/master/LICENSE
+[35]:	https://github.com/camilo-v/flint-aws/blob/master/LICENSE
