@@ -183,8 +183,8 @@
 	}
 
 	header.major {
-		text-align: center;
-		margin: 0 0 4em 0;
+		text-align: left;
+		margin-left: 3em;
 	}
 
 		header.major h2 {
