@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Flint | Metagenomics</title>
+		<title>Flint - Home</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
@@ -28,27 +28,28 @@
 				<h1><a href="index.html">Flint</a></h1>
 				<nav id="nav">
 					<ul>
-						<li><a href="index.html">Home</a></li>
-						<li><a href="getting_started.html">Getting Started</a></li>
-						<li><a href="documentation.html">Documentation</a></li>
-						<li><a href="faq.html">FAQ</a></li>
+						<li><a href="index.html" title="Home Page">Home</a></li>
+						<li><a href="getting_started.html" title="Getting Started">Getting Started</a></li>
+						<li><a href="documentation.html" title="Documentation">Documentation</a></li>
+						<li><a href="faq.html" title="FAQ">FAQ</a></li>
+						<li><a href="https://github.com/camilo-v/flint" target="_blank" title="GitHub">GitHub</a></li>
 					</ul>
 				</nav>
 			</header>
 
 		<!-- Main -->
 			<section id="main" class="wrapper style1">
-				<!-- <header class="major">
-					<h2>Right Sidebar</h2>
-					<p>Tempus adipiscing commodo ut aliquam blandit</p>
-				</header> -->
+				<header class="major">
+					<h2>Flint</h2>
+					<p>Large Scale Microbiome Profiling in the Cloud</p>
+				</header>
 				<div class="container">
 					<div class="row">
 						<div class="8u">
 							<section>
 								<a href="#" class="image fit"><img src="images/template/mountain.png"/></a>
 
-								<h2>Large Scale Microbiome Profiling in the Cloud</h2>
+								<h3>Fast Scalable Metagenomics Analyses</h3>
 
 								<p>Flint takes advantage of the <a href="https://spark.apache.org" target="_blank">Spark's</a> built-in parallelism and streaming engine architecture to quickly map reads against a large reference collection of bacterial genomes. Our implementation relies distributing the alignment of millions of sequencing reads against a large collection of bacterial genomes. The genome collection is partitioned in order to distribute it across worker machines, and this allows the use of large collections of reference genomes. We use the <a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml" target="_blank">Bowtie2</a> aligner under the hood in the worker-nodes, and are able to maintain fast alignment rates, without loss of accuracy.</p>
 								<p>Our computational framework is primarily implemented using Spark’s MapReduce model, and deployed in a cluster launched using the <a href="https://aws.amazon.com/emr/" target="_blank">Elastic Map Reduce</a> (EMR) service offered by <a href="https://aws.amazon.com" target="_blank">Amazon Web Services</a> (AWS). The initial cluster configuration (as of Spring 2019) consists of multiple commodity worker machines (computational nodes), and in the current configuration of the cluster that we use, each worker machine consists of 15 GB of RAM, 8 vCPUs (a hyperthread of a single Intel Xeon core), and 100 GB of EBS disk storage. Each of the worker nodes work in parallel to align the input sequencing DNA reads to a partitioned shard of the reference database.</p>
