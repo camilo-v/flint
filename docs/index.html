@@ -5,183 +5,193 @@
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
 <html>
-	<head>
-		<title>Flint - Home</title>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
-		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/skel.min.js"></script>
-		<script src="js/skel-layers.min.js"></script>
-		<script src="js/init.js"></script>
-		<noscript>
-			<link rel="stylesheet" href="css/skel.css" />
-			<link rel="stylesheet" href="css/style.css" />
-			<link rel="stylesheet" href="css/style-xlarge.css" />
-		</noscript>
-	</head>
-	<body id="top">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140303493-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-		<!-- Header -->
-			<header id="header" class="skel-layers-fixed">
-				<h1><a href="index.html">Flint</a></h1>
-				<nav id="nav">
-					<ul>
-						<li><a href="index.html" title="Home Page">Home</a></li>
-						<li><a href="getting_started.html" title="Getting Started">Getting Started</a></li>
-						<li><a href="documentation.html" title="Documentation">Documentation</a></li>
-						<li><a href="faq.html" title="FAQ">FAQ</a></li>
-						<li><a href="https://github.com/camilo-v/flint" target="_blank" title="GitHub">GitHub</a></li>
-					</ul>
-				</nav>
-			</header>
+        gtag('config', 'UA-140303493-1');
+    </script>
 
-		<!-- Main -->
-			<section id="main" class="wrapper style1">
-				<header class="major">
-					<h2>Flint</h2>
-					<p>Large Scale Microbiome Profiling in the Cloud</p>
-				</header>
-				<div class="container">
-					<div class="row">
-						<div class="8u">
-							<section>
-								<a href="#" class="image fit"><img src="images/template/mountain.png"/></a>
+    <title>Flint - Home</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/skel.min.js"></script>
+    <script src="js/skel-layers.min.js"></script>
+    <script src="js/init.js"></script>
+    <noscript>
+        <link rel="stylesheet" href="css/skel.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/style-xlarge.css" />
+    </noscript>
+</head>
+<body id="top">
 
-								<h3>Fast Scalable Metagenomics Analyses</h3>
+<!-- Header -->
+<header id="header" class="skel-layers-fixed">
+    <h1><a href="index.html">Flint</a></h1>
+    <nav id="nav">
+        <ul>
+            <li><a href="index.html" title="Home Page">Home</a></li>
+            <li><a href="getting_started.html" title="Getting Started">Getting Started</a></li>
+            <li><a href="documentation.html" title="Documentation">Documentation</a></li>
+            <li><a href="faq.html" title="FAQ">FAQ</a></li>
+            <li><a href="https://github.com/camilo-v/flint" target="_blank" title="GitHub">GitHub</a></li>
+        </ul>
+    </nav>
+</header>
 
-								<p>Flint takes advantage of the <a href="https://spark.apache.org" target="_blank">Spark's</a> built-in parallelism and streaming engine architecture to quickly map reads against a large reference collection of bacterial genomes. Our implementation relies distributing the alignment of millions of sequencing reads against a large collection of bacterial genomes. The genome collection is partitioned in order to distribute it across worker machines, and this allows the use of large collections of reference genomes. We use the <a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml" target="_blank">Bowtie2</a> aligner under the hood in the worker-nodes, and are able to maintain fast alignment rates, without loss of accuracy.</p>
-								<p>Our computational framework is primarily implemented using Spark’s MapReduce model, and deployed in a cluster launched using the <a href="https://aws.amazon.com/emr/" target="_blank">Elastic Map Reduce</a> (EMR) service offered by <a href="https://aws.amazon.com" target="_blank">Amazon Web Services</a> (AWS). The initial cluster configuration (as of Spring 2019) consists of multiple commodity worker machines (computational nodes), and in the current configuration of the cluster that we use, each worker machine consists of 15 GB of RAM, 8 vCPUs (a hyperthread of a single Intel Xeon core), and 100 GB of EBS disk storage. Each of the worker nodes work in parallel to align the input sequencing DNA reads to a partitioned shard of the reference database.</p>
-								<p>
-									You can read the <a href="" target="">Flint publication</a> to learn more.
-								</p>
-							</section>
-						</div>
+<!-- Main -->
+<section id="main" class="wrapper style1">
+    <header class="major">
+        <h2>Flint</h2>
+        <p>Large Scale Microbiome Profiling in the Cloud</p>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="8u">
+                <section>
+                    <a href="#" class="image fit"><img src="images/template/mountain.png"/></a>
 
-						<!-- --------------------------------- Right Side Bar --------------------------------- -->
-						<div class="4u">
-							<section>
-								<h3>Flint Metagenomics</h3>
-								<p>Flint is a metagenomics profiling pipeline that is built on top of the Apache Spark framework, and is designed for fast real-time profiling of metagenomic samples against a large collection of reference genomes.</p>
-								<ul class="actions">
-									<li><a href="getting_started.html" class="button alt">Learn More</a></li>
-								</ul>
-							</section>
-							<hr />
-							<section>
-								<h3>Resources</h3>
-								<ul class="alt">
-									<li><a href="#">Getting Started with Flint</a></li>
-									<li><a href="#">Bacterial Genome Indices</a></li>
-									<li><a href="#">Help &amp; Support</a></li>
-									<li><a href="#">Frequently Asked Questions</a></li>
-								</ul>
-							</section>
-							<section>
-								<h3>Documentation</h3>
-								<ul class="alt">
-									<li><a href="#">User Guide</a></li>
-									<li><a href="#">Sample Code</a></li>
-									<li><a href="#">What's New in Flint</a></li>
-									<li><a href="#">Release Notes</a></li>
-									<li><a href="#">Learn More...</a></li>
-								</ul>
-							</section>
-						</div>
-					</div>
+                    <h3>Fast Scalable Metagenomics Analyses</h3>
 
-					<!-- --------------------------------- Secondary Content --------------------------------- -->
-					<hr class="major" />
+                    <p>Flint takes advantage of the <a href="https://spark.apache.org" target="_blank">Spark's</a> built-in parallelism and streaming engine architecture to quickly map reads against a large reference collection of bacterial genomes. Our implementation relies distributing the alignment of millions of sequencing reads against a large collection of bacterial genomes. The genome collection is partitioned in order to distribute it across worker machines, and this allows the use of large collections of reference genomes. We use the <a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml" target="_blank">Bowtie2</a> aligner under the hood in the worker-nodes, and are able to maintain fast alignment rates, without loss of accuracy.</p>
+                    <p>Our computational framework is primarily implemented using Spark’s MapReduce model, and deployed in a cluster launched using the <a href="https://aws.amazon.com/emr/" target="_blank">Elastic Map Reduce</a> (EMR) service offered by <a href="https://aws.amazon.com" target="_blank">Amazon Web Services</a> (AWS). The initial cluster configuration (as of Spring 2019) consists of multiple commodity worker machines (computational nodes), and in the current configuration of the cluster that we use, each worker machine consists of 15 GB of RAM, 8 vCPUs (a hyperthread of a single Intel Xeon core), and 100 GB of EBS disk storage. Each of the worker nodes work in parallel to align the input sequencing DNA reads to a partitioned shard of the reference database.</p>
+                    <p>
+                        You can read the <a href="" target="">Flint publication</a> to learn more.
+                    </p>
+                </section>
+            </div>
 
-					<div class="row">
-						<div class="8u">
-							<section>
-								<h3>What's New in Release Candidate (RC) 1</h3>
-								<p>Flint RC 1 is the initial public release of the Flint pipeline. RC 1 is a focused release that contains refinements and enhancements to the existing features of Beta 2. As part of this release we are also making available the necessary indices to deploy in your cluster.</p>
+            <!-- --------------------------------- Right Side Bar --------------------------------- -->
+            <div class="4u">
+                <section>
+                    <h3>Flint Metagenomics</h3>
+                    <p>Flint is a metagenomics profiling pipeline that is built on top of the Apache Spark framework, and is designed for fast real-time profiling of metagenomic samples against a large collection of reference genomes.</p>
+                    <ul class="actions">
+                        <li><a href="getting_started.html" class="button alt">Learn More</a></li>
+                    </ul>
+                </section>
+                <hr />
+                <section>
+                    <h3>Resources</h3>
+                    <ul class="alt">
+                        <li><a href="#">Getting Started with Flint</a></li>
+                        <li><a href="#">Bacterial Genome Indices</a></li>
+                        <li><a href="#">Help &amp; Support</a></li>
+                        <li><a href="#">Frequently Asked Questions</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Documentation</h3>
+                    <ul class="alt">
+                        <li><a href="#">User Guide</a></li>
+                        <li><a href="#">Sample Code</a></li>
+                        <li><a href="#">What's New in Flint</a></li>
+                        <li><a href="#">Release Notes</a></li>
+                        <li><a href="#">Learn More...</a></li>
+                    </ul>
+                </section>
+            </div>
+        </div>
 
-								<h4>Changes, Additions, and Fixes</h4>
-								<ul>
-									<li>Initial release.</li>
-								</ul>
+        <!-- --------------------------------- Secondary Content --------------------------------- -->
+        <hr class="major" />
 
-								<h4>Requirements</h4>
-								<ul>
-									<li>EMR 5.22.0</li>
-									<li>Hadoop 2.8.5</li>
-									<li>Spark 2.0+</li>
-									<li>Python 2.7</li>
-									<li>Boto3</li>
-									<li>Pandas</li>
-									<li>For a full set of requiremtns, see the full <a href="documentation.html">documentation</a>.</li>
-								</ul>
+        <div class="row">
+            <div class="8u">
+                <section>
+                    <h3>What's New in Release Candidate (RC) 1</h3>
+                    <p>Flint RC 1 is the initial public release of the Flint pipeline. RC 1 is a focused release that contains refinements and enhancements to the existing features of Beta 2. As part of this release we are also making available the necessary indices to deploy in your cluster.</p>
 
-							</section>
-						</div>
-						<div class="4u">
-							<section>
-								<h3>Source Code</h3>
-								<p><a href="https://github.com/camilo-v/flint" target="_blank">GitHub Repo</a></p>
-								<p>Flint is open source software written in Python and Spark; it is available under the MIT License (MIT). The source code can be obtained at this <a href="https://github.com/camilo-v/flint" target="_blank">GitHub repository</a>. If you see a bug, please <a href="https://github.com/camilo-v/flint/issues" target="_blank">file a bug report.</a></p>
-							</section>
-							<hr />
-							<section>
-								<h3>Main Contributors</h3>
-								<ul>
-									<li><a href="https://github.com/camilo-v" target="_blank">Camilo Valdes</a></li>
-									<li><a href="https://github.com/stebliankin" target="_blank">Vitalii Stebliankin</a></li>
-									<li><a href="https://users.cs.fiu.edu/~giri/" target="_blank">Giri Narasimhan</a></li>
-								</ul>
-							</section>
-						</div>
-					</div>
-				</div>
-			</section>
+                    <h4>Changes, Additions, and Fixes</h4>
+                    <ul>
+                        <li>Initial release.</li>
+                    </ul>
 
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="container">
-					<div class="row double">
-						<div class="6u">
-							<h2>Flint - Metagenomics</h2>
-							<p>Flint is a metagenomics profiling pipeline built on top of Apache Spark, and is designed for fast real-time processing of samples against large collections of reference genomes.</p>
-							<ul class="icons">
-								<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-								<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-								<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-								<li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
-							</ul>
-						</div>
-						<div class="6u">
-							<div class="row collapse-at-2">
-								<div class="6u">
-									<h3>Flint</h3>
-									<ul class="alt">
-										<li><a href="https://github.com/camilo-v/flint">GitHub</a></li>
-										<li><a href="#">Documentation</a></li>
-										<li><a href="#">Getting Started</a></li>
-										<li><a href="#">FAQ</a></li>
-									</ul>
-								</div>
-								<div class="6u">
-									<h3>&nbsp;</h3>
-									<ul class="alt">
-										<li><a href="#">Publication</a></li>
-										<li><a href="http://biorg.cs.fiu.edu">BioRG Lab</a></li>
-										<li><a href="https://www.cis.fiu.edu">FIU Computer Science</a></li>
-										<li><a href="https://github.com/camilo-v/flint/issues">Bug Report</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<ul class="copyright">
-						<li>&copy; Camilo Valdes. All rights reserved.</li>
-						<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
-						<li>Images: <a href="http://unsplash.com">Unsplash</a></li>
-					</ul>
-				</div>
-			</footer>
+                    <h4>Requirements</h4>
+                    <ul>
+                        <li>EMR 5.22.0</li>
+                        <li>Hadoop 2.8.5</li>
+                        <li>Spark 2.0+</li>
+                        <li>Python 2.7</li>
+                        <li>Boto3</li>
+                        <li>Pandas</li>
+                        <li>For a full set of requiremtns, see the full <a href="documentation.html">documentation</a>.</li>
+                    </ul>
 
-	</body>
+                </section>
+            </div>
+            <div class="4u">
+                <section>
+                    <h3>Source Code</h3>
+                    <p><a href="https://github.com/camilo-v/flint" target="_blank">GitHub Repo</a></p>
+                    <p>Flint is open source software written in Python and Spark; it is available under the MIT License (MIT). The source code can be obtained at this <a href="https://github.com/camilo-v/flint" target="_blank">GitHub repository</a>. If you see a bug, please <a href="https://github.com/camilo-v/flint/issues" target="_blank">file a bug report.</a></p>
+                </section>
+                <hr />
+                <section>
+                    <h3>Main Contributors</h3>
+                    <ul>
+                        <li><a href="https://github.com/camilo-v" target="_blank">Camilo Valdes</a></li>
+                        <li><a href="https://github.com/stebliankin" target="_blank">Vitalii Stebliankin</a></li>
+                        <li><a href="https://users.cs.fiu.edu/~giri/" target="_blank">Giri Narasimhan</a></li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+    <div class="container">
+        <div class="row double">
+            <div class="6u">
+                <h2>Flint - Metagenomics</h2>
+                <p>Flint is a metagenomics profiling pipeline built on top of Apache Spark, and is designed for fast real-time processing of samples against large collections of reference genomes.</p>
+                <ul class="icons">
+                    <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+                    <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                    <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                    <li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                </ul>
+            </div>
+            <div class="6u">
+                <div class="row collapse-at-2">
+                    <div class="6u">
+                        <h3>Flint</h3>
+                        <ul class="alt">
+                            <li><a href="https://github.com/camilo-v/flint">GitHub</a></li>
+                            <li><a href="#">Documentation</a></li>
+                            <li><a href="#">Getting Started</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                    <div class="6u">
+                        <h3>&nbsp;</h3>
+                        <ul class="alt">
+                            <li><a href="#">Publication</a></li>
+                            <li><a href="http://biorg.cs.fiu.edu">BioRG Lab</a></li>
+                            <li><a href="https://www.cis.fiu.edu">FIU Computer Science</a></li>
+                            <li><a href="https://github.com/camilo-v/flint/issues">Bug Report</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="copyright">
+            <li>&copy; Camilo Valdes. All rights reserved.</li>
+            <li>Design: <a href="http://templated.co">TEMPLATED</a></li>
+            <li>Images: <a href="http://unsplash.com">Unsplash</a></li>
+        </ul>
+    </div>
+</footer>
+
+</body>
 </html>

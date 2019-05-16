@@ -5,199 +5,209 @@
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
 <html>
-	<head>
-		<title>Flint - Getting Started</title>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
-		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/skel.min.js"></script>
-		<script src="js/skel-layers.min.js"></script>
-		<script src="js/init.js"></script>
-		<noscript>
-			<link rel="stylesheet" href="css/skel.css" />
-			<link rel="stylesheet" href="css/style.css" />
-			<link rel="stylesheet" href="css/style-xlarge.css" />
-		</noscript>
-	</head>
-	<body id="top">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140303493-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-		<!-- Header -->
-			<header id="header" class="skel-layers-fixed">
-				<h1><a href="index.html">Flint</a></h1>
-				<nav id="nav">
-					<ul>
-						<li><a href="index.html" title="Home Page">Home</a></li>
-						<li><a href="getting_started.html" title="Getting Started">Getting Started</a></li>
-						<li><a href="documentation.html" title="Documentation">Documentation</a></li>
-						<li><a href="faq.html" title="FAQ">FAQ</a></li>
-						<li><a href="https://github.com/camilo-v/flint" target="_blank" title="GitHub">GitHub</a></li>
-					</ul>
-				</nav>
-			</header>
+        gtag('config', 'UA-140303493-1');
+    </script>
 
-		<!-- Main -->
-			<section id="main" class="wrapper style1">
-				<header class="major">
-					<h2>Getting Started</h2>
-					<p>Analyzing Large Metagenomics Datasets</p>
-				</header>
-				<div class="container">
-					<div class="row">
-						<div class="8u">
-							<section>
-								<p>Flint is a metagenomics profiling pipeline that is built on top of the Apache Spark framework, and is designed for fast real-time profiling of metagenomic samples against a large collection of reference genomes. Flint takes advantage of Spark’s built-in parallelism and streaming engine architecture to quickly map reads against a large reference collection of bacterial genomes.</p>
-								<p></p>
-							</section>
+    <title>Flint - Getting Started</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/skel.min.js"></script>
+    <script src="js/skel-layers.min.js"></script>
+    <script src="js/init.js"></script>
+    <noscript>
+        <link rel="stylesheet" href="css/skel.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/style-xlarge.css" />
+    </noscript>
+</head>
+<body id="top">
 
-							<br>
+<!-- Header -->
+<header id="header" class="skel-layers-fixed">
+    <h1><a href="index.html">Flint</a></h1>
+    <nav id="nav">
+        <ul>
+            <li><a href="index.html" title="Home Page">Home</a></li>
+            <li><a href="getting_started.html" title="Getting Started">Getting Started</a></li>
+            <li><a href="documentation.html" title="Documentation">Documentation</a></li>
+            <li><a href="faq.html" title="FAQ">FAQ</a></li>
+            <li><a href="https://github.com/camilo-v/flint" target="_blank" title="GitHub">GitHub</a></li>
+        </ul>
+    </nav>
+</header>
 
-							<section>
-								<h2>Installation</h2>
-								<p>Flint runs on Spark, but the current version is tuned for Amazon’s EMR service. While the Amazon-specific code is minimal, we are not yet supporting Spark clusters outside of EMR, although this support is coming. A Flint project consists of multiple pieces (outlined below), and you will need to stage the genome reference assets and machine configurations before launching a cluster. The steps for launching a Flint cluster are three (3):</p>
-								<ol>
-									<li><strong><a href="#assets">Asset Staging: </a></strong> Upload the bacterial reference genomes to an accessible data bucket in Amazon’s S3 storage, along with configuration scripts for the cluster</li>
-									<li><strong><a href="#emr">EMR Cluster Launch: </a></strong> Launch an EMR cluster that will be configured with bootstrap actions and steps that you staged in the previous step</li>
-									<li><strong><a href="source">Source Code Deployment: </a></strong> Upload the main Flint python script, along with utilities for copying the reference shards into each cluster node, and a template of the `spark-submit` resource file, into the cluster’s master node.</li>
-								</ol>
-								<p>The following section(s) contain details on each of the above steps. If you have any questions, comments, and/or queries, please get in touch with the project’s maintainer linked at the footer of this page.</p>
-								<hr class="major" />
-							</section>
+<!-- Main -->
+<section id="main" class="wrapper style1">
+    <header class="major">
+        <h2>Getting Started</h2>
+        <p>Analyzing Large Metagenomics Datasets</p>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="8u">
+                <section>
+                    <p>Flint is a metagenomics profiling pipeline that is built on top of the Apache Spark framework, and is designed for fast real-time profiling of metagenomic samples against a large collection of reference genomes. Flint takes advantage of Spark’s built-in parallelism and streaming engine architecture to quickly map reads against a large reference collection of bacterial genomes.</p>
+                    <p></p>
+                </section>
 
-							<!-- ---------------------------------- Asset Staging ---------------------------------- -->
-							<section>
-								<h2><a name="assets">Asset Staging</a></h2>
-								<p>This section involves two (2) parts: the upload of the bacterial genomes into a location that is accessible by the worker machines in the cluster, and the upload of two configuration scripts that the EMR launch procedure will use to provision the cluster.</p>
+                <br>
 
-								<h4>Bacterial Genomes</h4>
-								<h4>Cluster Configuration</h4>
+                <section>
+                    <h2>Installation</h2>
+                    <p>Flint runs on Spark, but the current version is tuned for Amazon’s EMR service. While the Amazon-specific code is minimal, we are not yet supporting Spark clusters outside of EMR, although this support is coming. A Flint project consists of multiple pieces (outlined below), and you will need to stage the genome reference assets and machine configurations before launching a cluster. The steps for launching a Flint cluster are three (3):</p>
+                    <ol>
+                        <li><strong><a href="#assets">Asset Staging: </a></strong> Upload the bacterial reference genomes to an accessible data bucket in Amazon’s S3 storage, along with configuration scripts for the cluster</li>
+                        <li><strong><a href="#emr">EMR Cluster Launch: </a></strong> Launch an EMR cluster that will be configured with bootstrap actions and steps that you staged in the previous step</li>
+                        <li><strong><a href="source">Source Code Deployment: </a></strong> Upload the main Flint python script, along with utilities for copying the reference shards into each cluster node, and a template of the `spark-submit` resource file, into the cluster’s master node.</li>
+                    </ol>
+                    <p>The following section(s) contain details on each of the above steps. If you have any questions, comments, and/or queries, please get in touch with the project’s maintainer linked at the footer of this page.</p>
+                    <hr class="major" />
+                </section>
 
-							</section>
+                <!-- ---------------------------------- Asset Staging ---------------------------------- -->
+                <section>
+                    <h2><a name="assets">Asset Staging</a></h2>
+                    <p>This section involves two (2) parts: the upload of the bacterial genomes into a location that is accessible by the worker machines in the cluster, and the upload of two configuration scripts that the EMR launch procedure will use to provision the cluster.</p>
 
-							<hr class="major" />
+                    <h4>Bacterial Genomes</h4>
+                    <h4>Cluster Configuration</h4>
 
+                </section>
 
-							<!-- --------------------------------- Cluster Launch ---------------------------------- -->
-							<section>
-								<h2>EMR Cluster Launch</h2>
-								<p>
-									Flint is currently optimized for running on AWS, and on the EMR service specifically. You will need an AWS account to launch an EMR cluster, so familiarity with AWS and EMR is ideal. If you are not familiar with AWS, you can start with <a href="https://aws.amazon.com/getting-started/" target="_blank"> this tutorial</a>. Please note that the following steps, and screenshots, all assume that you have successfully signed into your <a href="https://aws.amazon.com/console/" target="_blank">AWS Management Console</a>.
-								</p>
-
-								<a href="#" class="image fit"><img src="images/getting_started/aws-console.png" alt="aws management console" title="aws management console"/></a>
-
-								<p>
-									In the management console main page, you can search for "EMR"; this will take you to the EMR dashboard, which will load with the clusters you have created (if any). Click on the <strong>Create Cluster</strong> button to start.
-								</p>
-
-								<a href="#" class="image fit"><img src="images/getting_started/emr-1.png" alt="create cluster" title="create cluster"/></a>
-
-								<p>
-									This will take you to the <strong>"Create Cluster - Quick Options"</strong> configuration page. You can launch a cluster in this page right away, but we’ll go ahead and click on <strong>"Go to advanced options"</strong> link to launch a cluster with some specific changes required for Flint.
-								</p>
-
-								<a href="#" class="image fit"><img src="images/getting_started/emr-2.png" alt="advanced options" title="advanced options"/></a>
-
-							</section>
-
-							<hr class="major" />
+                <hr class="major" />
 
 
-							<!-- ------------------------------- Source Code Deployment ---------------------------- -->
-							<section>
-								<h2>Source Code Deployment</h2>
-								<p>
+                <!-- --------------------------------- Cluster Launch ---------------------------------- -->
+                <section>
+                    <h2>EMR Cluster Launch</h2>
+                    <p>
+                        Flint is currently optimized for running on AWS, and on the EMR service specifically. You will need an AWS account to launch an EMR cluster, so familiarity with AWS and EMR is ideal. If you are not familiar with AWS, you can start with <a href="https://aws.amazon.com/getting-started/" target="_blank"> this tutorial</a>. Please note that the following steps, and screenshots, all assume that you have successfully signed into your <a href="https://aws.amazon.com/console/" target="_blank">AWS Management Console</a>.
+                    </p>
 
-								</p>
-							</section>
+                    <a href="#" class="image fit"><img src="images/getting_started/aws-console.png" alt="aws management console" title="aws management console"/></a>
 
-						</div>
-						<div class="4u">
-							<section>
-								<h3>Flint Metagenomics</h3>
-								<p>Flint is a metagenomics profiling pipeline that is built on top of the Apache Spark framework, and is designed for fast real-time profiling of metagenomic samples against a large collection of reference genomes.</p>
-								<ul class="actions">
-									<li><a href="getting_started.html" class="button alt">Learn More</a></li>
-								</ul>
-							</section>
-							<hr />
-							<section>
-								<h3>Resources</h3>
-								<ul class="alt">
-									<li><a href="#">Getting Started with Flint</a></li>
-									<li><a href="#">Bacterial Genome Indices</a></li>
-									<li><a href="#">Help &amp; Support</a></li>
-									<li><a href="#">Frequently Asked Questions</a></li>
-								</ul>
-							</section>
-							<section>
-								<h3>Documentation</h3>
-								<ul class="alt">
-									<li><a href="#">User Guide</a></li>
-									<li><a href="#">Sample Code</a></li>
-									<li><a href="#">What's New in Flint</a></li>
-									<li><a href="#">Release Notes</a></li>
-									<li><a href="#">Learn More...</a></li>
-								</ul>
-							</section>
+                    <p>
+                        In the management console main page, you can search for "EMR"; this will take you to the EMR dashboard, which will load with the clusters you have created (if any). Click on the <strong>Create Cluster</strong> button to start.
+                    </p>
 
-							<section>
-								<h3>Publication</h3>
-								<p>Flint can be referenced by using the citation:</p>
-								<ul class="alt">
-									<li><strong>Valdes</strong>, <strong>Stebliankin</strong>, <strong>Narasimhan</strong> (2019), <a href="#">Large Scale Microbiome Profiling in the Cloud</a>, <em>ISMB 2019, in review</em>.</li>
-								</ul>
-							</section>
-						</div>
-					</div>
-				</div>
-			</section>
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-1.png" alt="create cluster" title="create cluster"/></a>
 
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="container">
-					<div class="row double">
-						<div class="6u">
-							<h2>Flint - Metagenomics</h2>
-							<p>Flint is a metagenomics profiling pipeline built on top of Apache Spark, and is designed for fast real-time processing of samples against large collections of reference genomes.</p>
-							<ul class="icons">
-								<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-								<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-								<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-								<li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
-							</ul>
-						</div>
-						<div class="6u">
-							<div class="row collapse-at-2">
-								<div class="6u">
-									<h3>Flint</h3>
-									<ul class="alt">
-										<li><a href="https://github.com/camilo-v/flint">GitHub</a></li>
-										<li><a href="#">Documentation</a></li>
-										<li><a href="#">Getting Started</a></li>
-										<li><a href="#">FAQ</a></li>
-									</ul>
-								</div>
-								<div class="6u">
-									<h3>&nbsp;</h3>
-									<ul class="alt">
-										<li><a href="#">Publication</a></li>
-										<li><a href="http://biorg.cs.fiu.edu">BioRG Lab</a></li>
-										<li><a href="https://www.cis.fiu.edu">FIU Computer Science</a></li>
-										<li><a href="https://github.com/camilo-v/flint/issues">Bug Report</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<ul class="copyright">
-						<li>&copy; Camilo Valdes. All rights reserved.</li>
-						<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
-						<li>Images: <a href="http://unsplash.com">Unsplash</a></li>
-					</ul>
-				</div>
-			</footer>
+                    <p>
+                        This will take you to the <strong>"Create Cluster - Quick Options"</strong> configuration page. You can launch a cluster in this page right away, but we’ll go ahead and click on <strong>"Go to advanced options"</strong> link to launch a cluster with some specific changes required for Flint.
+                    </p>
 
-	</body>
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-2.png" alt="advanced options" title="advanced options"/></a>
+
+                </section>
+
+                <hr class="major" />
+
+
+                <!-- ------------------------------- Source Code Deployment ---------------------------- -->
+                <section>
+                    <h2>Source Code Deployment</h2>
+                    <p>
+
+                    </p>
+                </section>
+
+            </div>
+            <div class="4u">
+                <section>
+                    <h3>Flint Metagenomics</h3>
+                    <p>Flint is a metagenomics profiling pipeline that is built on top of the Apache Spark framework, and is designed for fast real-time profiling of metagenomic samples against a large collection of reference genomes.</p>
+                    <ul class="actions">
+                        <li><a href="getting_started.html" class="button alt">Learn More</a></li>
+                    </ul>
+                </section>
+                <hr />
+                <section>
+                    <h3>Resources</h3>
+                    <ul class="alt">
+                        <li><a href="#">Getting Started with Flint</a></li>
+                        <li><a href="#">Bacterial Genome Indices</a></li>
+                        <li><a href="#">Help &amp; Support</a></li>
+                        <li><a href="#">Frequently Asked Questions</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Documentation</h3>
+                    <ul class="alt">
+                        <li><a href="#">User Guide</a></li>
+                        <li><a href="#">Sample Code</a></li>
+                        <li><a href="#">What's New in Flint</a></li>
+                        <li><a href="#">Release Notes</a></li>
+                        <li><a href="#">Learn More...</a></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Publication</h3>
+                    <p>Flint can be referenced by using the citation:</p>
+                    <ul class="alt">
+                        <li><strong>Valdes</strong>, <strong>Stebliankin</strong>, <strong>Narasimhan</strong> (2019), <a href="#">Large Scale Microbiome Profiling in the Cloud</a>, <em>ISMB 2019, in review</em>.</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+    <div class="container">
+        <div class="row double">
+            <div class="6u">
+                <h2>Flint - Metagenomics</h2>
+                <p>Flint is a metagenomics profiling pipeline built on top of Apache Spark, and is designed for fast real-time processing of samples against large collections of reference genomes.</p>
+                <ul class="icons">
+                    <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+                    <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                    <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                    <li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                </ul>
+            </div>
+            <div class="6u">
+                <div class="row collapse-at-2">
+                    <div class="6u">
+                        <h3>Flint</h3>
+                        <ul class="alt">
+                            <li><a href="https://github.com/camilo-v/flint">GitHub</a></li>
+                            <li><a href="#">Documentation</a></li>
+                            <li><a href="#">Getting Started</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                    <div class="6u">
+                        <h3>&nbsp;</h3>
+                        <ul class="alt">
+                            <li><a href="#">Publication</a></li>
+                            <li><a href="http://biorg.cs.fiu.edu">BioRG Lab</a></li>
+                            <li><a href="https://www.cis.fiu.edu">FIU Computer Science</a></li>
+                            <li><a href="https://github.com/camilo-v/flint/issues">Bug Report</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="copyright">
+            <li>&copy; Camilo Valdes. All rights reserved.</li>
+            <li>Design: <a href="http://templated.co">TEMPLATED</a></li>
+            <li>Images: <a href="http://unsplash.com">Unsplash</a></li>
+        </ul>
+    </div>
+</footer>
+
+</body>
 </html>
