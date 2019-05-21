@@ -65,13 +65,13 @@
 
                 <section>
                     <h2>Installation</h2>
-                    <p>Flint runs on <a href="https://spark.apache.org" target="_blank">Spark</a>, and the current version is tuned for Amazon’s EMR service. While the Amazon-specific code is minimal, we are not yet supporting Spark clusters outside of EMR, although this support is coming. A Flint project consists of multiple pieces (outlined below), and you will need to stage the genome reference assets and machine configurations before launching a cluster. The steps for launching a Flint cluster are three (3):</p>
+                    <p>Flint runs on <a href="https://spark.apache.org" target="_blank">Spark</a>, and the current version is tuned for <a href="https://aws.amazon.com/emr/" target="_blank">Amazon's EMR service</a>. While the Amazon-specific code is minimal, we are not yet supporting Spark clusters outside of EMR. A Flint project consists of multiple pieces (outlined below), and you will need to stage the genome reference assets and machine configurations before launching a cluster. The steps for launching a Flint cluster are three (3):</p>
                     <ol>
-                        <li><strong><a href="#assets">Asset Staging: </a></strong> Upload the bacterial reference genomes to an accessible data bucket in Amazon’s S3 storage, along with configuration scripts for the cluster</li>
-                        <li><strong><a href="#emr">EMR Cluster Launch: </a></strong> Launch an EMR cluster that will be configured with bootstrap actions and steps that you staged in the previous step</li>
-                        <li><strong><a href="source">Source Code Deployment: </a></strong> Upload the main Flint python script, along with utilities for copying the reference shards into each cluster node, and a template of the `spark-submit` resource file, into the cluster’s master node.</li>
+                        <li><strong><a href="#assets">Asset Staging: </a></strong> Upload the bacterial reference genomes to an accessible data bucket in Amazon's S3 storage, along with configuration scripts for the cluster.</li>
+                        <li><strong><a href="#emr">EMR Cluster Launch: </a></strong> Launch an EMR cluster that will be configured with bootstrap actions and steps that you staged in the previous step.</li>
+                        <li><strong><a href="source">Source Code Deployment: </a></strong> Upload the main Flint python script, along with utilities for copying the reference shards into each cluster node, and a template of the 'spark-submit' resource file, into the cluster's master node.</li>
                     </ol>
-                    <p>The following section(s) contain details on each of the above steps. If you have any questions, comments, and/or queries, please get in touch with the project’s maintainer linked at the footer of this page.</p>
+                    <p>The following section(s) contain details on each of the above steps. If you have any questions, comments, and/or queries, please get in touch with the project's maintainer linked at the footer of this page.</p>
                     <hr class="major" />
                 </section>
 
@@ -98,16 +98,72 @@
                     <a href="#" class="image fit"><img src="images/getting_started/aws-console.png" alt="aws management console" title="aws management console"/></a>
 
                     <p>
-                        In the management console main page, you can search for "EMR"; this will take you to the EMR dashboard, which will load with the clusters you have created (if any). Click on the <strong>Create Cluster</strong> button to start.
+                        In the management console main page, you can search for "EMR"; this will take you to the EMR dashboard, which will load with the clusters you have previously created (if any). Click on the <strong>Create Cluster</strong> button to start.
                     </p>
 
                     <a href="#" class="image fit"><img src="images/getting_started/emr-1.png" alt="create cluster" title="create cluster"/></a>
 
                     <p>
-                        This will take you to the <strong>"Create Cluster - Quick Options"</strong> configuration page. You can launch a cluster in this page right away, but we’ll go ahead and click on <strong>"Go to advanced options"</strong> link to launch a cluster with some specific changes required for Flint.
+                        This will take you to the <strong>"Create Cluster - Quick Options"</strong> configuration page. You can launch a cluster in this page right away, but we'll go ahead and click on the <strong>"Go to advanced options"</strong> link to launch a cluster with some specific changes required for Flint.
                     </p>
 
                     <a href="#" class="image fit"><img src="images/getting_started/emr-2.png" alt="advanced options" title="advanced options"/></a>
+
+                    <p>
+                        The "<strong>Advanced Options</strong>" has four (4) steps that you have to configure, these are:
+                        <ol>
+                            <li>Software and Steps</li>
+                            <li>Hardware</li>
+                            <li>General Cluster Settings</li>
+                            <li>Security</li>
+                        </ol>
+                        We'll go through each one, and configure them step-by-step bellow.
+                    </p>
+
+                    <!-- ------------------------------------ Software and Steps ------------------------------------ -->
+                    <h3>1. Software and Steps</h3>
+                    <p>In this step of the configuration, we are going to tell the EMR service the basic software that our cluster will run on. Flint was tested and developed on EMR release "<strong>emr-5.20.0</strong>" but you should be able to select the latest release. If you see that you get an error with a particular release configuration, <a href="https://github.com/camilo-v/flint/issues" target="_blank">please submit an issue</a>.</p>
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_1.png" alt="Software and Steps" title="Software and Steps"/></a>
+                    <p>
+                        Make sure the highlighted items in the above screenshot are selected, and then copy the following code for the software settings configuration:
+                        <script src="https://gist.github.com/camilo-v/710dd9d93eea2d77a76243ce35a0ed35.js"></script>
+                        You can also view the <a href="https://gist.github.com/camilo-v/710dd9d93eea2d77a76243ce35a0ed35" target="_blank">gist in github</a>.
+                        Click the "<strong>Next</strong>" button to proceed to the next step.
+                    </p>
+
+                    <!-- ------------------------------------------- Hardware ------------------------------------ -->
+                    <h3>2. Hardware</h3>
+                    <p>In this step we'll configure the <a href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-supported-instance-types.html" target="_blank">type and number of machines</a> that the cluster will contain. Be very careful when selecting the instance types, as each type has a corresponding cost, and if you are not careful you can be charged a lot. You can view EMR instance type <a href="https://aws.amazon.com/emr/pricing/" target="_blank">costs</a> by going to <a href="https://aws.amazon.com/emr/pricing/" target="_blank">this page</a>.</p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_2_1.png" alt="Hardware" title="Hardware"/></a>
+
+                    <p>In the Flint paper, we used instances of type "c4.2xlarge" for both the "Master" and "Worker" nodes. You can change the instance types by clicking on the "<strong>pencil</strong> icon (circled <a style="color: red">red</a>) in the above screenshot, and then changing the instance type. The worker nodes are configured in the "<strong>Core</strong>" section, and you can change the number of worker nodes that you need &mdash; here, we selected 64. Note that this has to match the <strong>number of partitions of your genome references</strong>.</p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_2_2.png" alt="Hardware - Costs" title="Hardware - Costs"/></a>
+
+                    <p>After you have selected the instance type, and number of them, you can obtain a lower price per machine by selecting the "<strong>Spot</strong>" purchasing option (see above). Hovering over the "<strong>information</strong>" icon should bring up a menu with the list of current spot-market prices for the instance you selected. In the paper, the "c4.2xlarge" were priced at $0.123 USD per hour per machine.</p>
+
+                    <!-- ------------------------------------- General Cluster Settings ------------------------------------ -->
+                    <h3>3. General Cluster Settings</h3>
+                    <p>In this section we will configure the actual software that each machine will contain. Custom Python libraries, the <a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml" target="_blank">Bowtie2</a> aligner, etc. are all loaded in this step. To start you can give your cluster a name, and select a location were deployment and runtime logs will be stored -- note these locations have to be in a S3 bucket that you have acess to.</p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_3_1.png" alt="General Cluster Settings" title="General Cluster Settings"/></a>
+
+                    <h4>Bootstrap Actions</h4>
+                    <p>The critical section in this step is the Bootstrap Actions &mdash; this is the part in which you provide a script that will provision each machine with the required software. In the "<strong>Bootstrap Actions</strong> section, select the "<strong>Custom action"</strong> option in the "<strong>Add bootstrap action</strong>" dropdown. This will enable the "<strong>Configure and add</strong>" button, which will allow you to select a location in an S3 bucket that contains the script with the steps to provision each machine.
+                    </p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_3_2.png" alt="General Cluster Settings - Bootstrap Actions" title="General Cluster Settings - Bootstrap Actions"/></a>
+
+                    <p>The script that provisions each machine is a BASH shell-script, and you have to have uploaded it to an accessible S3 location that you can point to.</p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_3_3.png" alt="General Cluster Settings - Bootstrap Action Script" title="General Cluster Settings - Bootstrap Action Script"/></a>
+
+                    <p>Give the action a name, and then click on the "Add" button. Once the action has been successfully added, click "Next" to proceed to the next section.</p>
+
+
+                    <h3>4. Security</h3>
+                    <p></p>
 
                 </section>
 
