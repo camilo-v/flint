@@ -88,6 +88,7 @@
 
                 <hr class="major" />
 
+                <br>
 
                 <!-- --------------------------------- Cluster Launch ---------------------------------- -->
                 <section>
@@ -185,12 +186,19 @@
 
                 <hr class="major" />
 
+                <br>
+
 
                 <!-- ---------------------------------- Accessing the Cluster ------------------------------------- -->
 
                 <section>
                     <h2><a name="access">Accessing the Cluster</a></h2>
-                    <p>Once you have successfully launched the cluster you can connect to it via SSH or SFTP. The URL for connecting to the cluster is displayed next to the "<strong>Master public DNS</strong>" label, or you can click on the "<strong>SSH</strong>" link to bring up a dialog with the exact command you can copy/paste into your SSH client (terminal.ap, etc.).</p>
+                    <p>Once you have successfully launched the cluster you can connect to it via <strong>SSH</strong> or <strong>SFTP</strong> to launch jobs and upload files respectively. The sections below outline how to connect to the Master node, and also how to access diagnostic and monitoring dashboards.</p>
+
+                    <br>
+
+                    <h3>SSH</h3>
+                    <p>The URL for connecting to the cluster is displayed next to the "<strong>Master public DNS</strong>" label, or you can click on the "<strong>SSH</strong>" link to bring up a dialog with the exact command you can copy/paste into your SSH client (terminal.ap, etc.).</p>
 
                     <a href="#" class="image fit"><img src="images/getting_started/emr-4-1.png" alt="Connecting" title="Connecting"/></a>
 
@@ -206,9 +214,39 @@
 
                     <p>Once you see the ASCII logo for "<strong>EMR</strong>" you are successfully connected to the Master node. From here, you can jump to any of the other Worker machines by using the private key certificate that you launched the cluster with and used to connect to the master node.</p>
 
+                    <br>
+
+                    <h3>SFTP</h3>
+                    <p>You can upload files to the cluster through an SFTP client such as <a href="https://filezilla-project.org" target="_blank">Filezilla</a> or <a href="https://panic.com/transmit/" target="_blank">Transmit 5</a>. If you are using Transmit on macOS, the address of the cluster should be the same that you used in the SSH command, or the one that EMR gives you next to the "<strong>Master public DNS</strong>" label. The <strong>User Name</strong> should be "hadoop" and for the password just use the same private key certificate (IAM user) that you setup the cluster with.</p>
+
+                    <a href="#"><img src="images/getting_started/emr-4-4.png" height="auto" width="400px" alt="Connecting - SFTP" title="Connecting - SFTP"/></a>
+
+                    <p>After you connect, you will be taken to the home directory of the hadoop user.</p>
+
+                    <br>
+
+                    <h3>Ganglia Instrumentation</h3>
+                    <p>You can monitor the health of your cluster, as well as track resource usage with <a href="http://ganglia.sourceforge.net" target="_blank">Ganglia</a>. The Ganglia dashboard is not readily accessible, and you need to do some setup before you can connect to it. The link in the titled "<strong>Enable Web Connection</strong> has detailed instructions on how to do this, but briefly: you have to establish an SSH tunnel from an SSH client (Terminal.app in macOS), and setup <a href="https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/" target="_blank">FoxyProxy</a> in a supported Web Browser. </p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-4-5.png" alt="Connecting - Web Connection" title="Connecting - Web Connection"/></a>
+
+                    <p>Establishing an SSH tunnel, and FoxyProxy instructions:</p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-4-6.png" alt="Connecting - Web Connection details" title="Connecting - Web Connection details"/></a>
+
+                    <p>Once you have setup the SSH tunnel and FoxyProxy, then you can access the Ganglia dashboard by adding "/ganglia" to the end of the "<strong>Master public DNS</strong>" address. Note that this has to be done in the same browser that you installed and configured FoxyProxy, and after you started the SSH tunnel. Order matters, so first you start the SSH tunnel, and then you access the web interface.</p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-4-7.png" alt="Connecting - Ganglia" title="Connecting - Ganglia"/></a>
+
+                    <p>Ganglia information for all nodes.</p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-4-8.png" alt="Connecting - Ganglia graph" title="Connecting - Ganglia graph"/></a>
+
                 </section>
 
                 <hr class="major" />
+
+                <br>
 
                 <!-- ---------------------------------- Source Code Deployment ------------------------------------ -->
                 <section>
