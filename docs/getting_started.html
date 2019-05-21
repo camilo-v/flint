@@ -71,7 +71,7 @@
                         <li><strong><a href="#emr">EMR Cluster Launch: </a></strong> Launch an EMR cluster that will be configured with bootstrap actions and steps that you staged in the previous step.</li>
                         <li><strong><a href="#access">Accessing the Cluster:</a></strong> Connect to the cluster that you just created. You can connect through SSH or through a SFTP client.</li>
                         <li><strong><a href="#source">Source Code Deployment: </a></strong> Upload the main Flint python script, along with utilities for copying the reference shards into each cluster node, and a template of the 'spark-submit' resource file, into the cluster's master node.</li>
-                        <li><strong><a href="#terminate">Terminating: </a></strong></strong> Any cloud provider will charge you for the time you use, so its critical that you terminate the clusters after you are done using them.</li>
+                        <li><strong><a href="#terminate">Terminating a Cluster:</a></strong></strong> Any cloud provider will charge you for the time you use, so its critical that you terminate the clusters after you are done using them.</li>
                     </ol>
                     <p>The following section(s) contain details on each of the above steps. If you have any questions, comments, and/or queries, please get in touch with the project's maintainer linked at the footer of this page.</p>
                     <hr class="major" />
@@ -79,7 +79,7 @@
 
                 <!-- ---------------------------------- Asset Staging ---------------------------------- -->
                 <section>
-                    <h2><a name="assets">Asset Staging</a></h2>
+                    <h2><a name="assets"></a>Asset Staging</h2>
                     <p>This section involves two (2) parts: the upload of the bacterial genomes into a location that is accessible by the worker machines in the cluster, and the upload of two configuration scripts that the EMR launch procedure will use to provision the cluster.</p>
 
                     <h4>Bacterial Genomes</h4>
@@ -93,7 +93,7 @@
 
                 <!-- --------------------------------- Cluster Launch ---------------------------------- -->
                 <section>
-                    <h2><a name="emr">EMR Cluster Launch</a></h2>
+                    <h2><a name="emr"></a>EMR Cluster Launch</h2>
                     <p>
                         Flint is currently optimized for running on AWS, and on the EMR service specifically. You will need an AWS account to launch an EMR cluster, so familiarity with AWS and EMR is ideal. If you are not familiar with AWS, you can start with <a href="https://aws.amazon.com/getting-started/" target="_blank"> this tutorial</a>. Please note that the following steps, and screenshots, all assume that you have successfully signed into your <a href="https://aws.amazon.com/console/" target="_blank">AWS Management Console</a>.
                     </p>
@@ -193,7 +193,7 @@
                 <!-- ---------------------------------- Accessing the Cluster ------------------------------------- -->
 
                 <section>
-                    <h2><a name="access">Accessing the Cluster</a></h2>
+                    <h2><a name="access"></a>Accessing the Cluster</h2>
                     <p>Once you have successfully launched the cluster you can connect to it via <strong>SSH</strong> or <strong>SFTP</strong> to launch jobs and upload files respectively. The sections below outline how to connect to the Master node, and also how to access diagnostic and monitoring dashboards.</p>
 
                     <br>
@@ -251,7 +251,7 @@
 
                 <!-- ---------------------------------- Source Code Deployment ------------------------------------ -->
                 <section>
-                    <h2><a name="source">Source Code Deployment</a></h2>
+                    <h2><a name="source"></a>Source Code Deployment</h2>
                     <p>
 
                     </p>
@@ -260,7 +260,7 @@
 
                 <!-- ---------------------------------------- Terminating ---------------------------------------- -->
                 <section>
-                    <h2><a name="terminate">Terminating</a></h2>
+                    <h2><a name="terminate"></a>Terminating a Cluster</h2>
                     <p>In AWS, Amazon <a href="https://aws.amazon.com/emr/pricing/" target="_blank">charges you for the time</a> you use the cluster, and if you do not terminate the cluster after you are done with it, the bill can be quite large. Terminating a cluster will stop all jobs and any code and/or resources you uploaded to the cluster will be lost. Terminating the cluster is easy, in the cluster details page, just click on the "<strong>Terminate</strong>" button.</p>
 
                     <a href="#" class="image fit"><img src="images/getting_started/emr-6-1.png" alt="Terminate" title="Terminate"/></a>
