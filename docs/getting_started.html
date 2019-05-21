@@ -65,12 +65,13 @@
 
                 <section>
                     <h2>Deployment &amp; Installation</h2>
-                    <p>Flint runs on <a href="https://spark.apache.org" target="_blank">Spark</a>, and the current version is tuned for <a href="https://aws.amazon.com/emr/" target="_blank">Amazon's EMR service</a>. While the Amazon-specific code is minimal, we are not yet supporting Spark clusters outside of EMR. A Flint project consists of multiple pieces (outlined below), and you will need to stage the genome reference assets and machine configurations before launching a cluster. The steps for launching a Flint cluster are:</p>
+                    <p>Flint runs on <a href="https://spark.apache.org" target="_blank">Spark</a>, and the current version is tuned for <a href="https://aws.amazon.com/emr/" target="_blank">Amazon's EMR service</a>. While the Amazon-specific code is minimal, we are not yet supporting Spark clusters outside of EMR. A Flint project consists of multiple pieces (outlined below), and you will need to stage the genome reference assets and machine configurations before launching a cluster. The steps are:</p>
                     <ol>
                         <li><strong><a href="#assets">Asset Staging: </a></strong> Upload the bacterial reference genomes to an accessible data bucket in Amazon's S3 storage, along with configuration scripts for the cluster.</li>
                         <li><strong><a href="#emr">EMR Cluster Launch: </a></strong> Launch an EMR cluster that will be configured with bootstrap actions and steps that you staged in the previous step.</li>
                         <li><strong><a href="#access">Accessing the Cluster:</a></strong> Connect to the cluster that you just created. You can connect through SSH or through a SFTP client.</li>
                         <li><strong><a href="#source">Source Code Deployment: </a></strong> Upload the main Flint python script, along with utilities for copying the reference shards into each cluster node, and a template of the 'spark-submit' resource file, into the cluster's master node.</li>
+                        <li><strong><a href="#terminate">Terminating: </a></strong></strong> Any cloud provider will charge you for the time you use, so its critical that you terminate the clusters after you are done using them.</li>
                     </ol>
                     <p>The following section(s) contain details on each of the above steps. If you have any questions, comments, and/or queries, please get in touch with the project's maintainer linked at the footer of this page.</p>
                     <hr class="major" />
@@ -255,6 +256,33 @@
 
                     </p>
                 </section>
+
+
+                <!-- ---------------------------------------- Terminating ---------------------------------------- -->
+                <section>
+                    <h2><a name="terminate">Terminating</a></h2>
+                    <p>In AWS, Amazon <a href="https://aws.amazon.com/emr/pricing/" target="_blank">charges you for the time</a> you use the cluster, and if you do not terminate the cluster after you are done with it, the bill can be quite large. Terminating a cluster will stop all jobs and any code and/or resources you uploaded to the cluster will be lost. Terminating the cluster is easy, in the cluster details page, just click on the "<strong>Terminate</strong>" button.</p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-6-1.png" alt="Terminate" title="Terminate"/></a>
+
+                    <p>Clicking on the "<strong>Terminate</strong>" button will bring up the "Terminate" dialog. Click on "<strong>Terminate</strong>" to stop the cluster.</p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-6-2.png" alt="Terminate - Dialog" title="Terminate - Dialog"/></a>
+
+                    <p>When the status of the cluster is displayed as <strong>Terminated</strong>, the cluster is no longer available, but note that it will still be visible in the cluster list in the main EMR dashboard.</p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-6-3.png" alt="Terminate - Terminated" title="Terminate - Terminated"/></a>
+
+                    <p>A cool part of having the cluster details available after you terminated a cluster is that you can "<strong>Clone</strong>" it (relaunch a new cluster with the same parameters and configurations of a previous cluster) or copy a AWS CLI command to relaunch a cluster right from the command line.</p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-6-4.png" alt="Terminate - Relaunch Options" title="Terminate - Relaunch Options"/></a>
+
+                </section>
+
+                <hr class="major" />
+
+                <p><em>Code forth and prosper.</em> 🖖</p>
+                <br>
 
             </div>
             <div class="4u">
