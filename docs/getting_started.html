@@ -64,12 +64,13 @@
                 <br>
 
                 <section>
-                    <h2>Installation</h2>
-                    <p>Flint runs on <a href="https://spark.apache.org" target="_blank">Spark</a>, and the current version is tuned for <a href="https://aws.amazon.com/emr/" target="_blank">Amazon's EMR service</a>. While the Amazon-specific code is minimal, we are not yet supporting Spark clusters outside of EMR. A Flint project consists of multiple pieces (outlined below), and you will need to stage the genome reference assets and machine configurations before launching a cluster. The steps for launching a Flint cluster are three (3):</p>
+                    <h2>Deployment &amp; Installation</h2>
+                    <p>Flint runs on <a href="https://spark.apache.org" target="_blank">Spark</a>, and the current version is tuned for <a href="https://aws.amazon.com/emr/" target="_blank">Amazon's EMR service</a>. While the Amazon-specific code is minimal, we are not yet supporting Spark clusters outside of EMR. A Flint project consists of multiple pieces (outlined below), and you will need to stage the genome reference assets and machine configurations before launching a cluster. The steps for launching a Flint cluster are:</p>
                     <ol>
                         <li><strong><a href="#assets">Asset Staging: </a></strong> Upload the bacterial reference genomes to an accessible data bucket in Amazon's S3 storage, along with configuration scripts for the cluster.</li>
                         <li><strong><a href="#emr">EMR Cluster Launch: </a></strong> Launch an EMR cluster that will be configured with bootstrap actions and steps that you staged in the previous step.</li>
-                        <li><strong><a href="source">Source Code Deployment: </a></strong> Upload the main Flint python script, along with utilities for copying the reference shards into each cluster node, and a template of the 'spark-submit' resource file, into the cluster's master node.</li>
+                        <li><strong><a href="#access">Accessing the Cluster:</a></strong> Connect to the cluster that you just created. You can connect through SSH or through a SFTP client.</li>
+                        <li><strong><a href="#source">Source Code Deployment: </a></strong> Upload the main Flint python script, along with utilities for copying the reference shards into each cluster node, and a template of the 'spark-submit' resource file, into the cluster's master node.</li>
                     </ol>
                     <p>The following section(s) contain details on each of the above steps. If you have any questions, comments, and/or queries, please get in touch with the project's maintainer linked at the footer of this page.</p>
                     <hr class="major" />
@@ -90,7 +91,7 @@
 
                 <!-- --------------------------------- Cluster Launch ---------------------------------- -->
                 <section>
-                    <h2>EMR Cluster Launch</h2>
+                    <h2><a name="emr">EMR Cluster Launch</a></h2>
                     <p>
                         Flint is currently optimized for running on AWS, and on the EMR service specifically. You will need an AWS account to launch an EMR cluster, so familiarity with AWS and EMR is ideal. If you are not familiar with AWS, you can start with <a href="https://aws.amazon.com/getting-started/" target="_blank"> this tutorial</a>. Please note that the following steps, and screenshots, all assume that you have successfully signed into your <a href="https://aws.amazon.com/console/" target="_blank">AWS Management Console</a>.
                     </p>
@@ -141,7 +142,7 @@
 
                     <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_2_2.png" alt="Hardware - Costs" title="Hardware - Costs"/></a>
 
-                    <p>After you have selected the instance type, and number of them, you can obtain a lower price per machine by selecting the "<strong>Spot</strong>" purchasing option (see above). Hovering over the "<strong>information</strong>" icon should bring up a menu with the list of current spot-market prices for the instance you selected. In the paper, the "c4.2xlarge" were priced at $0.123 USD per hour per machine.</p>
+                    <p>After you have selected the instance type, and number of them, you can obtain a lower price per machine by selecting the "<strong>Spot</strong>" purchasing option (see above). Hovering over the "<strong>information</strong>" icon should bring up a menu with the list of current spot-market prices for the instance you selected. In the paper, the "c4.2xlarge" instances were priced at $0.123 USD per hour per machine. In this page you can also select the maximum amount that you are willing to pay for an instance, in our case we specified $0.159 USD.</p>
 
                     <!-- ------------------------------------- General Cluster Settings ------------------------------------ -->
                     <h3>3. General Cluster Settings</h3>
@@ -162,17 +163,43 @@
                     <p>Give the action a name, and then click on the "Add" button. Once the action has been successfully added, click "Next" to proceed to the next section.</p>
 
 
+                    <!-- ------------------------------------- Security ------------------------------------ -->
                     <h3>4. Security</h3>
-                    <p></p>
+                    <p>The last step involves setting the access credentials to the cluster. In the "<strong>Security Options</strong>" section you have to select the <strong>EC2 key pair</strong> for the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html">IAM User</a> that will be accessing the cluster. Double-check that the Master and Core (worker) nodes have the security group that includes the IAM user, and you should be good to go. Click on the <strong>Create Cluster</strong> button to finish.</p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_4.png" alt="Security" title="Security"/></a>
+
+                    <!-- ------------------------------------- Finish ------------------------------------ -->
+                    <h3>Finish</h3>
+                    <p>After you click the <strong>Create Cluster</strong> button you will be taken to the details page of the cluster you just created. The page will display status messages and give you an idea of the progress of the launch.</p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-3-options-5.png" alt="Finish" title="Finish"/></a>
+
+                    <p>Depending on the resources (instance types) that you requested, along with spot-market availability (if you used it), the cluster should be ready in about 8-15 minutes. The cluster is ready to use when the status message: "<span style="color: green">Waiting</span>" Cluster ready after last step completed." appears, as well as both the Master and Core nodes show a status of "<span style="color: green">Running</span>".</p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-3-options-6.png" alt="Finish - connections" title="Finish  - connections"/></a>
+
+                    <p>Make a note of the entry for "<strong>Master public DNS</strong>" as you will need it to connect to the cluster later on.</p>
 
                 </section>
 
                 <hr class="major" />
 
 
-                <!-- ------------------------------- Source Code Deployment ---------------------------- -->
+                <!-- ---------------------------------- Accessing the Cluster ------------------------------------- -->
+
                 <section>
-                    <h2>Source Code Deployment</h2>
+                    <h2><a name="access">Accessing the Cluster</a></h2>
+                    <p>
+
+                    </p>
+                </section>
+
+                <hr class="major" />
+
+                <!-- ---------------------------------- Source Code Deployment ------------------------------------ -->
+                <section>
+                    <h2><a name="source">Source Code Deployment</a></h2>
                     <p>
 
                     </p>
