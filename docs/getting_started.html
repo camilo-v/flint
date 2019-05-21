@@ -57,7 +57,7 @@
         <div class="row">
             <div class="8u">
                 <section>
-                    <p>Flint is a metagenomics profiling pipeline that is built on top of the Apache Spark framework, and is designed for fast real-time profiling of metagenomic samples against a large collection of reference genomes. Flint takes advantage of Spark’s built-in parallelism and streaming engine architecture to quickly map reads against a large reference collection of bacterial genomes.</p>
+                    <p>Flint is a metagenomics profiling pipeline that is built on top of the <a href="https://spark.apache.org" target="_blank">Apache Spark</a> framework, and is designed for fast profiling of metagenomic samples against a large collection of reference genomes. Flint takes advantage of Spark's built-in parallelism and streaming engine architecture to quickly map reads against a large reference collection of bacterial genomes.</p>
                     <p></p>
                 </section>
 
@@ -65,7 +65,7 @@
 
                 <section>
                     <h2>Installation</h2>
-                    <p>Flint runs on Spark, but the current version is tuned for Amazon’s EMR service. While the Amazon-specific code is minimal, we are not yet supporting Spark clusters outside of EMR, although this support is coming. A Flint project consists of multiple pieces (outlined below), and you will need to stage the genome reference assets and machine configurations before launching a cluster. The steps for launching a Flint cluster are three (3):</p>
+                    <p>Flint runs on <a href="https://spark.apache.org" target="_blank">Spark</a>, and the current version is tuned for Amazon’s EMR service. While the Amazon-specific code is minimal, we are not yet supporting Spark clusters outside of EMR, although this support is coming. A Flint project consists of multiple pieces (outlined below), and you will need to stage the genome reference assets and machine configurations before launching a cluster. The steps for launching a Flint cluster are three (3):</p>
                     <ol>
                         <li><strong><a href="#assets">Asset Staging: </a></strong> Upload the bacterial reference genomes to an accessible data bucket in Amazon’s S3 storage, along with configuration scripts for the cluster</li>
                         <li><strong><a href="#emr">EMR Cluster Launch: </a></strong> Launch an EMR cluster that will be configured with bootstrap actions and steps that you staged in the previous step</li>
