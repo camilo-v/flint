@@ -190,9 +190,22 @@
 
                 <section>
                     <h2><a name="access">Accessing the Cluster</a></h2>
-                    <p>
+                    <p>Once you have successfully launched the cluster you can connect to it via SSH or SFTP. The URL for connecting to the cluster is displayed next to the "<strong>Master public DNS</strong>" label, or you can click on the "<strong>SSH</strong>" link to bring up a dialog with the exact command you can copy/paste into your SSH client (terminal.ap, etc.).</p>
 
-                    </p>
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-4-1.png" alt="Connecting" title="Connecting"/></a>
+
+                    <p><strong>Note:</strong>You will need a copy of the same IAM User certificate you created the cluster with to connect to the cluster with SSH. In the command that EMR gives you, the "-i" option to the "ssh" command specifies the path to the certificate.</p>
+
+                    <p>Just copy/paste the url that EMR gives you into an SSH command in an SSH client such as Terminal.app in macOS, specify the certificate with the "-i" parameter and make sure that you have the user as "hadoop" &mdash; its the default EMR username.</p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-4-2.png" alt="Connecting - SSH" title="Connecting - SSH"/></a>
+
+                    <p>Since this is the first time we are connecting to the cluster, SSH will ask us if we want to add the cluster's IP address to the list of known hosts, go ahead and type "<strong>yes</strong>" and you will connect.</p>
+
+                    <a href="#" class="image fit"><img src="images/getting_started/emr-4-3.png" alt="Connecting - SSH done" title="Connecting - SSH done"/></a>
+
+                    <p>Once you see the ASCII logo for "<strong>EMR</strong>" you are successfully connected to the Master node. From here, you can jump to any of the other Worker machines by using the private key certificate that you launched the cluster with and used to connect to the master node.</p>
+
                 </section>
 
                 <hr class="major" />
