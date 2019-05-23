@@ -4,7 +4,7 @@
 	templated.co @templatedco
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140303493-1"></script>
@@ -83,15 +83,32 @@
                     <h2><a name="assets"></a>Asset Staging</h2>
                     <p>This section involves two (2) parts: the upload of the bacterial genomes into a location that is accessible by the worker machines in the cluster, and the upload of two configuration scripts that the EMR launch procedure will use to provision the cluster.</p>
 
-                    <h3>Bacterial Genomes</h3>
+                    <h3><a name="bacterial_genomes"></a>Bacterial Genomes</h3>
                     <p>
 
                     </p>
 
-                    <h3>Cluster Configuration</h3>
+                    <h3><a name="cluster_configuration"></a>Cluster Configuration</h3>
                     <p>
-                        The cluster is configured with two(2) scripts. The first one is a JSON file that is used in the first step of the cluster creation, "<a href="#software_steps" title="Software and Steps">Software and Steps</a>" below.
+                        The cluster is configured with two (2) scripts that are provided to the EMR service when a cluster is created. These two files need to be uploaded to an S3 bucket that is accessible to EMR so that you can select them in the cluster creation step.
                     </p>
+
+                    <p> The first script is a JSON file that is used in the first step of the cluster creation, "<a href="#software_steps" title="Software and Steps">Software and Steps</a>", below &mdash; this is the JSON file that you specify in the "Software Settings" part. The second is a BASH file that defines what software will be loaded into each machine of the cluster (master and worker nodes). The BASH script defines environment variables, sets up the required directories, and loads the <a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml" target="_blank">Bowtie2</a> aligner. This BASH file is used the "<a href="#general_cluster_settings" title="General Cluster Settings">General Cluster Settings</a>" steps below, and is the file that is pointed to by the "Bootstrap Actions" in the configuration.
+                    </p>
+
+                    <h4><a name="emr_json_software_settings"></a>EMR JSON Software Setting</h4>
+                    <p>The EMR software settings are simple, and they specify the particulars that will be used to spin-up a Spark cluster.</p>
+                    <script src="https://gist.github.com/camilo-v/710dd9d93eea2d77a76243ce35a0ed35.js"></script>
+
+                    <br>
+                    <h4><a name="emr_bootstrap_action"></a>EMR Bootstrap Action</h4>
+                    <p>The bootstrap action is a little more complicated, and it defines all the software that each machine will contain. The BASH script for this is located <a href="amazon-emr/bootstrap_actions/app-setup.sh" title="app-setup.sh">here</a>, or in the "amazon-emr" directory of the Flint project, under the folder "bootstrap actions".</p>
+
+                    <p>The <a href="amazon-emr/bootstrap_actions/app-setup.sh" title="app-setup.sh">script</a> is also available as a <a href="https://gist.github.com/camilo-v/a36d778bcfdb500be04e08bf51efe072" title="app-setup.sh gist">github gist.</a></p>
+
+                    <p>You will need to make a copy of this script, change line number "49" so that it points to the root bucket name in which you uploaded the file so that the EMR setup can pick it up. The variable "SOURCE_BUCKET_NAME=s3-bucket-name" in line 49 defines the bucket name in which you are staging your assets in.</p>
+
+
 
                 </section>
 
@@ -138,7 +155,7 @@
                     <p>
                         Make sure the highlighted items in the above screenshot are selected, and then copy the following code for the software settings configuration:
                         <script src="https://gist.github.com/camilo-v/710dd9d93eea2d77a76243ce35a0ed35.js"></script>
-                        You can also view the <a href="https://gist.github.com/camilo-v/710dd9d93eea2d77a76243ce35a0ed35" target="_blank">gist in github</a>.
+                        You can also view the <a href="https://gist.github.com/camilo-v/710dd9d93eea2d77a76243ce35a0ed35" target="_blank">gist in github</a>. These settings are the ones described in the <a href="#emr_json_software_settings">EMR JSON</a> settings in the "<a href="#cluster_configuration" title="Cluster Configuration">Cluster Configuration</a>" above.
                         Click the "<strong>Next</strong>" button to proceed to the next step.
                     </p>
 
@@ -166,7 +183,7 @@
 
                     <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_3_2.png" alt="General Cluster Settings - Bootstrap Actions" title="General Cluster Settings - Bootstrap Actions"/></a>
 
-                    <p>The script that provisions each machine is a BASH shell-script, and you have to have uploaded it to an accessible S3 location that you can point to.</p>
+                    <p>The script that provisions each machine is a BASH shell-script, and you have to have uploaded it to an accessible S3 location that you can point to. This BASH script is the file from the "<a href="#cluster_configuration" title="Cluster Configuration">Cluster Configuration</a>" section above, and the one under the "<a href="#emr_bootstrap_action" title="Bootstrap Action">Bootstrap Action</a>" part.</p>
 
                     <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_3_3.png" alt="General Cluster Settings - Bootstrap Action Script" title="General Cluster Settings - Bootstrap Action Script"/></a>
 
