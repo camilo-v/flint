@@ -25,6 +25,10 @@
     <script src="js/skel.min.js"></script>
     <script src="js/skel-layers.min.js"></script>
     <script src="js/init.js"></script>
+
+    <!-- Google Code Prettify -->
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+
     <noscript>
         <link rel="stylesheet" href="css/skel.css" />
         <link rel="stylesheet" href="css/style.css" />
@@ -110,7 +114,12 @@
 
                     <p>The <a href="amazon-emr/bootstrap_actions/app-setup.sh" title="app-setup.sh">script</a> is also available as a <a href="https://gist.github.com/camilo-v/a36d778bcfdb500be04e08bf51efe072" title="app-setup.sh gist">github gist.</a></p>
 
-                    <p>You will need to make a copy of this script, change line number "49" so that it points to the root bucket name in which you uploaded the file so that the EMR setup can pick it up. The variable "SOURCE_BUCKET_NAME=s3-bucket-name" in line 49 defines the bucket name in which you are staging your assets in.</p>
+                    <p>You will need to make a copy of this script, change line number "49" so that it points to the root bucket name in which you uploaded the file so that the EMR setup can pick it up. The variable "SOURCE_BUCKET_NAME=s3-bucket-name" in <strong>line 49</strong> defines the bucket name in which you are staging your assets in.</p>
+
+                    <code class="prettyprint lang-bsh">
+# Edit line 49 to match your bucket's name.
+SOURCE_BUCKET_NAME="s3-bucket-name"
+                    </code>
 
 
 
