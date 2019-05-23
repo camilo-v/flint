@@ -53,21 +53,6 @@ wget https://$SOURCE_BUCKET_NAME.s3.amazonaws.com/apps/bowtie2-$BOWTIE_VERSION-l
 unzip -d $APPS_DIR bowtie2-$BOWTIE_VERSION-linux-x86_64.zip
 BOWTIE_DIR=$APPS_DIR"/bowtie2-"$BOWTIE_VERSION"-linux-x86_64"
 
-#	Samtools
-# wget -S -T 10 -t 5 https://$SOURCE_BUCKET_NAME.s3.amazonaws.com/apps/samtools-$SAMTOOLS_VERSION.tar.bz2
-# tar -vxjf samtools-$SAMTOOLS_VERSION.tar.bz2 -C $APPS_DIR
-
-
-# ----------------------------------------------- Samtools Setup ------------------------------------------------------
-#
-#	Samtools needs to be built
-# SAMTOOLS_DIR="/home/hadoop/apps/samtools-"$SAMTOOLS_VERSION
-# cd $SAMTOOLS_DIR
-
-# ./configure --prefix=$SAMTOOLS_DIR
-# make
-# make install
-
 cd ~
 
 # ---------------------------------------------- Environment Setup ----------------------------------------------------
@@ -80,12 +65,6 @@ echo "alias l='ls -lhF'" >> ~/.bash_profile
 echo "" >> ~/.bashrc
 printf '\n\n# Bowtie2\n' >> ~/.bashrc
 printf 'PATH=$PATH:'$BOWTIE_DIR'/; export PATH\n' >> ~/.bashrc
-
-#	Add samtools to the path
-# printf '\n# Samtools executable and header files location\n' >> ~/.bashrc
-# printf 'PATH=$PATH:'$SAMTOOLS_DIR'; export PATH\n' >> ~/.bashrc
-# printf 'PATH=$PATH:'$SAMTOOLS_DIR'/misc; export PATH\n' >> ~/.bashrc
-
 
 # -------------------------------------------------- Cert Keys --------------------------------------------------------
 #
@@ -173,7 +152,6 @@ mkdir -p $FLINT_HOME
 #
 sudo pip install pathlib2
 sudo pip install biopython
-# sudo pip install boto3
 
 
 # ------------------------------------------------ Spark Conf ---------------------------------------------------------
@@ -193,6 +171,5 @@ SPARK_CONF_DIR="/etc/spark/conf"
 #   Copy the conf from S3 into the local filesystem
 aws s3 cp s3:$LOG4J_CONF $CUSTOM_CONFS
 
-#   Copy the new conf to the correct locations
-#sudo cp $CUSTOM_CONFS"/"$LOG4J_NAME $SPARK_CONF_DIR
+
 
