@@ -71,7 +71,7 @@ printf 'PATH=$PATH:'$BOWTIE_DIR'/; export PATH\n' >> ~/.bashrc
 #	The certificate is used so we can login into the worker nodes.
 #
 CERT_NAME="your_spark_certificate.pem"
-S3_CERT="//s3-bucket-name/certs/"$CERT_NAME
+S3_CERT="//"$SOURCE_BUCKET_NAME"/certs/"$CERT_NAME
 
 CERT_DIR="/home/hadoop/certs"
 mkdir -p $CERT_DIR
@@ -82,55 +82,12 @@ LOCAL_CERT=$CERT_DIR"/"$CERT_NAME
 chmod 400 $LOCAL_CERT
 
 
-# ------------------------------------------ Index Copy Step (DEPRECATED) ---------------------------------------------
-#
-#   The command for copying the Index Partitions is stored in S3. So we copy it from there into the cluster as a
-#   convenience so we don't have to upload it after.
-#
-SCRIPT_NAME="copy_index.sh"
-S3_SCRIPT="//s3-bucket-name/steps/"$SCRIPT_NAME
-
-SCRIPTS_DIR="/home/hadoop/scripts"
-mkdir -p $SCRIPTS_DIR
-
-aws s3 cp s3:$S3_SCRIPT $SCRIPTS_DIR
-
-LOCAL_SCRIPT=$SCRIPTS_DIR"/"$SCRIPT_NAME
-chmod ug+rwx $LOCAL_SCRIPT
-
-
-# ------------------------------------------- Annotations (DEPRECATED) ------------------------------------------------
-#
-#	Copy the annotations (genome sequence reference names) into the cluster as a convenience so we don't have
-#	to copy them later on.
-#
-ANNOTATIONS_SCRIPT_NAME="copy_annotations.sh"
-S3_ANNOTATIONS="//s3-bucket-name/steps/"$ANNOTATIONS_SCRIPT_NAME
-
-aws s3 cp s3:$S3_ANNOTATIONS $SCRIPTS_DIR
-
-LOCAL_ANNOT_SCRIPT=$SCRIPTS_DIR"/"$ANNOTATIONS_SCRIPT_NAME
-chmod ug+rwx $LOCAL_ANNOT_SCRIPT
-
-
-# --------------------------------------------- Samples (DEPRECATED) --------------------------------------------------
-#
-#	Copy the samples we are testing with. This is a convenience step. No longer used. To be removed.
-#
-SAMPLE_SCRIPT_NAME="copy_samples.sh"
-S3_SAMPLE_SCRIPT_PATH="//s3-bucket-name/steps/"$SAMPLE_SCRIPT_NAME
-
-aws s3 cp s3:$S3_SAMPLE_SCRIPT_PATH $SCRIPTS_DIR
-
-LOCAL_SAMPLE_SCRIPT=$SCRIPTS_DIR"/"$SAMPLE_SCRIPT_NAME
-chmod ug+rwx $LOCAL_SAMPLE_SCRIPT
-
 # ------------------------------------------------- Worker List -------------------------------------------------------
 #
 #	Copy the script that retrieves the Worker node ip addresses. Used for debugging.
 #
 WORKER_LIST_SCRIPT_NAME="get_worker_ip_list.sh"
-S3_WORKER_LIST_SCRIPT_PATH="//s3-bucket-name/steps/"$WORKER_LIST_SCRIPT_NAME
+S3_WORKER_LIST_SCRIPT_PATH="//"$SOURCE_BUCKET_NAME"/steps/"$WORKER_LIST_SCRIPT_NAME
 
 aws s3 cp s3:$S3_WORKER_LIST_SCRIPT_PATH $SCRIPTS_DIR
 
@@ -161,7 +118,7 @@ sudo pip install biopython
 CUSTOM_CONFS="/home/hadoop/confs"
 mkdir -p $CUSTOM_CONFS
 
-S3_CUSTOM_CONFS="//s3-bucket-name/config_files"
+S3_CUSTOM_CONFS="//"$SOURCE_BUCKET_NAME"/config_files"
 
 LOG4J_NAME="log4j.properties"
 LOG4J_CONF=$S3_CUSTOM_CONFS"/"$LOG4J_NAME
