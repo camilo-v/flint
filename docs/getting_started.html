@@ -77,13 +77,21 @@
                     <hr class="major" />
                 </section>
 
-                <!-- ---------------------------------- Asset Staging ---------------------------------- -->
+
+                <!-- ----------------------------------------- Asset Staging -------------------------------------- -->
                 <section>
                     <h2><a name="assets"></a>Asset Staging</h2>
                     <p>This section involves two (2) parts: the upload of the bacterial genomes into a location that is accessible by the worker machines in the cluster, and the upload of two configuration scripts that the EMR launch procedure will use to provision the cluster.</p>
 
-                    <h4>Bacterial Genomes</h4>
-                    <h4>Cluster Configuration</h4>
+                    <h3>Bacterial Genomes</h3>
+                    <p>
+
+                    </p>
+
+                    <h3>Cluster Configuration</h3>
+                    <p>
+                        The cluster is configured with two(2) scripts. The first one is a JSON file that is used in the first step of the cluster creation, "<a href="#software_steps" title="Software and Steps">Software and Steps</a>" below.
+                    </p>
 
                 </section>
 
@@ -115,16 +123,16 @@
                     <p>
                         The "<strong>Advanced Options</strong>" has four (4) steps that you have to configure, these are:
                         <ol>
-                            <li>Software and Steps</li>
-                            <li>Hardware</li>
-                            <li>General Cluster Settings</li>
-                            <li>Security</li>
+                            <li><a href="#software_steps" title="Software and Steps">Software and Steps</a></li>
+                            <li><a href="#hardware" title="Hardware">Hardware</a></li>
+                            <li><a href="#general_cluster_settings" title="General Cluster Settings">General Cluster Settings</a></li>
+                            <li><a href="#security" title="Security">Security</a></li>
                         </ol>
                         We'll go through each one, and configure them step-by-step bellow.
                     </p>
 
                     <!-- ------------------------------------ Software and Steps ------------------------------------ -->
-                    <h3>1. Software and Steps</h3>
+                    <h3><a name="software_steps"></a> 1. Software and Steps</h3>
                     <p>In this step of the configuration, we are going to tell the EMR service the basic software that our cluster will run on. Flint was tested and developed on EMR release "<strong>emr-5.20.0</strong>" but you should be able to select the latest release. If you see that you get an error with a particular release configuration, <a href="https://github.com/camilo-v/flint/issues" target="_blank">please submit an issue</a>.</p>
                     <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_1.png" alt="Software and Steps" title="Software and Steps"/></a>
                     <p>
@@ -135,7 +143,7 @@
                     </p>
 
                     <!-- ------------------------------------------- Hardware ------------------------------------ -->
-                    <h3>2. Hardware</h3>
+                    <h3><a name="hardware"></a>2. Hardware</h3>
                     <p>In this step we'll configure the <a href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-supported-instance-types.html" target="_blank">type and number of machines</a> that the cluster will contain. Be very careful when selecting the instance types, as each type has a corresponding cost, and if you are not careful you can be charged a lot. You can view EMR instance type <a href="https://aws.amazon.com/emr/pricing/" target="_blank">costs</a> by going to <a href="https://aws.amazon.com/emr/pricing/" target="_blank">this page</a>.</p>
 
                     <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_2_1.png" alt="Hardware" title="Hardware"/></a>
@@ -147,7 +155,7 @@
                     <p>After you have selected the instance type, and number of them, you can obtain a lower price per machine by selecting the "<strong>Spot</strong>" purchasing option (see above). Hovering over the "<strong>information</strong>" icon should bring up a menu with the list of current spot-market prices for the instance you selected. In the paper, the "c4.2xlarge" instances were priced at $0.123 USD per hour per machine. In this page you can also select the maximum amount that you are willing to pay for an instance, in our case we specified $0.159 USD.</p>
 
                     <!-- ------------------------------------- General Cluster Settings ------------------------------------ -->
-                    <h3>3. General Cluster Settings</h3>
+                    <h3><a name="general_cluster_settings"></a>3. General Cluster Settings</h3>
                     <p>In this section we will configure the actual software that each machine will contain. Custom Python libraries, the <a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml" target="_blank">Bowtie2</a> aligner, etc. are all loaded in this step. To start you can give your cluster a name, and select a location were deployment and runtime logs will be stored -- note these locations have to be in a S3 bucket that you have acess to.</p>
 
                     <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_3_1.png" alt="General Cluster Settings" title="General Cluster Settings"/></a>
@@ -166,7 +174,7 @@
 
 
                     <!-- ------------------------------------- Security ------------------------------------ -->
-                    <h3>4. Security</h3>
+                    <h3><a name="security"></a>4. Security</h3>
                     <p>The last step involves setting the access credentials to the cluster. In the "<strong>Security Options</strong>" section you have to select the <strong>EC2 key pair</strong> for the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html">IAM User</a> that will be accessing the cluster. Double-check that the Master and Core (worker) nodes have the security group that includes the IAM user, and you should be good to go. Click on the <strong>Create Cluster</strong> button to finish.</p>
 
                     <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_4.png" alt="Security" title="Security"/></a>
@@ -331,7 +339,7 @@
         <div class="row double">
             <div class="6u">
                 <h2>Flint - Metagenomics</h2>
-                <p>Flint is a metagenomics profiling pipeline built on top of Apache Spark, and is designed for fast real-time processing of samples against large collections of reference genomes.</p>
+                <p>Flint is a metagenomics profiling pipeline built on top of <a href="https://spark.apache.org" target="_blank">Apache Spark</a>, and is designed for fast real-time processing of samples against large collections of reference genomes.</p>
                 <ul class="icons">
                     <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
                     <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
