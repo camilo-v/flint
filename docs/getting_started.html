@@ -34,6 +34,7 @@
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="css/style-xlarge.css" />
     </noscript>
+
 </head>
 <body id="top">
 
@@ -95,12 +96,12 @@
 
                 <!-- ----------------------------------------- Asset Staging -------------------------------------- -->
                 <section>
-                    <h2><a name="assets"></a>Asset Staging</h2>
+                    <h2><a name="assets" class="anchor"></a>Asset Staging</h2>
                     <p>This section involves two (2) parts: the upload of the bacterial genomes into a location that is accessible by the worker machines in the cluster, and the upload of two configuration scripts that the EMR launch procedure will use to provision the cluster.</p>
 
                     <!-- -------------------------- Partitioned Bacterial Genomes ------------------------------ -->
                     <br>
-                    <h3><a name="bacterial_genomes"></a>1. Partitioned Bacterial Genomes 📦📦</h3>
+                    <h3><a name="bacterial_genomes" class="anchor"></a>1. Partitioned Bacterial Genomes 📦📦</h3>
                     <p>
                         The bacterial genomes are the largest asset that you will upload to your S3 bucket. <a href="https://aws.amazon.com/s3/pricing/">S3 storage prices</a> change, so please check that the bucket you are uploading to has the capacity to host the genome collection. In the Flint publication, we used a bacterial genome collection from <a href="https://bacteria.ensembl.org/index.html" title="Ensembl Bacterial" target="_blank">Ensembl (v.41)</a> that was partitioned into 64 shards, with each shard going to a single machine in the cluster. We also provide genome collections for <a href="https://bacteria.ensembl.org/index.html" title="Ensembl Bacterial" target="_blank">Ensembl (v.41)</a> partitioned into 128, 256, and 512 shards, which can be used in clusters of those sizes.
                     </p>
@@ -138,7 +139,7 @@ aws s3 sync s3://flint-bacterial-genomes/ensembl/41/indicespartitions_64 s3://my
 
                     <br><br>
 
-                    <h3><a name="cluster_configuration"></a>2. Cluster Configurations</h3>
+                    <h3><a name="cluster_configuration" class="anchor"></a>2. Cluster Configurations</h3>
                     <p>
                         The cluster is configured with two (2) scripts that are provided to the EMR service when a cluster is created. These two files need to be uploaded to an S3 bucket that is accessible to EMR so that you can select them in the cluster creation step.
                     </p>
@@ -149,12 +150,12 @@ aws s3 sync s3://flint-bacterial-genomes/ensembl/41/indicespartitions_64 s3://my
 
                     <!-- ------------------------------------- EMR Software Settings --------------------------- -->
                     <br>
-                    <h4><a name="emr_json_software_settings"></a>EMR JSON Software Settings</h4>
+                    <h4><a name="emr_json_software_settings" class="anchor"></a>EMR JSON Software Settings</h4>
                     <p>The EMR software settings are simple, and they specify the particulars that will be used to spin-up a Spark cluster. Note that the below settings are specific to the EMR <a href="https://aws.amazon.com/ec2/instance-types/" title="Amazon EC2 Instance Types" target="_blank">machine instances</a> of type <samp>c4.2xlarge</samp>, these instances contain 8 <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html" title="Optimizing CPU Options" target="_blank">vCPU</a> and 15 GB of memory.</p>
                     <script src="https://gist.github.com/camilo-v/710dd9d93eea2d77a76243ce35a0ed35.js"></script>
 
                     <br>
-                    <h4><a name="emr_bootstrap_action"></a>EMR Bootstrap Action</h4>
+                    <h4><a name="emr_bootstrap_action" class="anchor"></a>EMR Bootstrap Action</h4>
                     <p>The bootstrap action is a little more complicated, and it defines all the software that each machine will contain. The BASH script for this is located <a href="amazon-emr/bootstrap_actions/app-setup.sh" title="app-setup.sh">here</a>, or in the "amazon-emr" directory of the Flint project, under the folder "bootstrap actions".</p>
 
                     <p>The <a href="amazon-emr/bootstrap_actions/app-setup.sh" title="app-setup.sh">script</a> is also available as a <a href="https://gist.github.com/camilo-v/a36d778bcfdb500be04e08bf51efe072" title="app-setup.sh gist">github gist.</a></p>
@@ -176,7 +177,7 @@ SOURCE_BUCKET_NAME="s3-bucket-name"
 
                 <!-- --------------------------------- Cluster Launch ---------------------------------- -->
                 <section>
-                    <h2><a name="emr"></a>EMR Cluster Launch</h2>
+                    <h2><a name="emr" class="anchor"></a>EMR Cluster Launch</h2>
                     <p>
                         Flint is currently optimized for running on AWS, and on the EMR service specifically. You will need an AWS account to launch an EMR cluster, so familiarity with AWS and EMR is ideal. If you are not familiar with AWS, you can start with <a href="https://aws.amazon.com/getting-started/" target="_blank"> this tutorial</a>. Please note that the following steps, and screenshots, all assume that you have successfully signed into your <a href="https://aws.amazon.com/console/" target="_blank">AWS Management Console</a>.
                     </p>
@@ -207,7 +208,7 @@ SOURCE_BUCKET_NAME="s3-bucket-name"
                     </p>
 
                     <!-- ------------------------------------ Software and Steps ------------------------------------ -->
-                    <h3><a name="software_steps"></a> 1. Software and Steps</h3>
+                    <h3><a name="software_steps" class="anchor"></a> 1. Software and Steps</h3>
                     <p>In this step of the configuration, we are going to tell the EMR service the basic software that our cluster will run on. Flint was tested and developed on EMR release "<strong>emr-5.20.0</strong>" but you should be able to select the latest release. If you see that you get an error with a particular release configuration, <a href="https://github.com/camilo-v/flint/issues" target="_blank">please submit an issue</a>.</p>
                     <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_1.png" alt="Software and Steps" title="Software and Steps"/></a>
                     <p>
@@ -218,7 +219,7 @@ SOURCE_BUCKET_NAME="s3-bucket-name"
                     </p>
 
                     <!-- ------------------------------------------- Hardware ------------------------------------ -->
-                    <h3><a name="hardware"></a>2. Hardware</h3>
+                    <h3><a name="hardware" class="anchor"></a>2. Hardware</h3>
                     <p>In this step we'll configure the <a href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-supported-instance-types.html" target="_blank">type and number of machines</a> that the cluster will contain. Be very careful when selecting the instance types, as each type has a corresponding cost, and if you are not careful you can be charged a lot. You can view EMR instance type <a href="https://aws.amazon.com/emr/pricing/" target="_blank">costs</a> by going to <a href="https://aws.amazon.com/emr/pricing/" target="_blank">this page</a>.</p>
 
                     <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_2_1.png" alt="Hardware" title="Hardware"/></a>
@@ -230,7 +231,7 @@ SOURCE_BUCKET_NAME="s3-bucket-name"
                     <p>After you have selected the instance type, and number of them, you can obtain a lower price per machine by selecting the "<strong>Spot</strong>" purchasing option (see above). Hovering over the "<strong>information</strong>" icon should bring up a menu with the list of current spot-market prices for the instance you selected. In the paper, the <samp>c4.2xlarge</samp> instances were priced at $0.123 USD per hour per machine. In this page you can also select the maximum amount that you are willing to pay for an instance, in our case we specified $0.159 USD.</p>
 
                     <!-- ------------------------------------- General Cluster Settings ------------------------------------ -->
-                    <h3><a name="general_cluster_settings"></a>3. General Cluster Settings</h3>
+                    <h3><a name="general_cluster_settings" class="anchor"></a>3. General Cluster Settings</h3>
                     <p>In this section we will configure the actual software that each machine will contain. Custom Python libraries, the <a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml" target="_blank">Bowtie2</a> aligner, etc. are all loaded in this step. To start you can give your cluster a name, and select a location were deployment and runtime logs will be stored -- note these locations have to be in a S3 bucket that you have acess to.</p>
 
                     <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_3_1.png" alt="General Cluster Settings" title="General Cluster Settings"/></a>
@@ -249,7 +250,7 @@ SOURCE_BUCKET_NAME="s3-bucket-name"
 
 
                     <!-- ------------------------------------- Security ------------------------------------ -->
-                    <h3><a name="security"></a>4. Security</h3>
+                    <h3><a name="security" class="anchor"></a>4. Security</h3>
                     <p>The last step involves setting the access credentials to the cluster. In the "<strong>Security Options</strong>" section you have to select the <strong>EC2 key pair</strong> for the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html">IAM User</a> that will be accessing the cluster. Double-check that the Master and Core (worker) nodes have the security group that includes the IAM user, and you should be good to go. Click on the <strong>Create Cluster</strong> button to finish.</p>
 
                     <a href="#" class="image fit"><img src="images/getting_started/emr-3-options_4.png" alt="Security" title="Security"/></a>
@@ -276,7 +277,7 @@ SOURCE_BUCKET_NAME="s3-bucket-name"
                 <!-- ---------------------------------- Accessing the Cluster ------------------------------------- -->
 
                 <section>
-                    <h2><a name="access"></a>Accessing the Cluster</h2>
+                    <h2><a name="access" class="anchor"></a>Accessing the Cluster</h2>
                     <p>Once you have successfully launched the cluster you can connect to it via <strong>SSH</strong> or <strong>SFTP</strong> to launch jobs and upload files respectively. The sections below outline how to connect to the Master node, and also how to access diagnostic and monitoring dashboards.</p>
 
                     <br>
@@ -334,7 +335,7 @@ SOURCE_BUCKET_NAME="s3-bucket-name"
 
                 <!-- ---------------------------------- Source Code Deployment ------------------------------------ -->
                 <section>
-                    <h2><a name="source"></a>Source Code Deployment</h2>
+                    <h2><a name="source" class="anchor"></a>Source Code Deployment</h2>
                     <p>
 
                     </p>
@@ -343,7 +344,7 @@ SOURCE_BUCKET_NAME="s3-bucket-name"
 
                 <!-- ---------------------------------------- Terminating ---------------------------------------- -->
                 <section>
-                    <h2><a name="terminate"></a>Terminating a Cluster</h2>
+                    <h2><a name="terminate" class="anchor"></a>Terminating a Cluster</h2>
                     <p>In AWS, Amazon <a href="https://aws.amazon.com/emr/pricing/" target="_blank">charges you for the time</a> you use the cluster, and if you do not terminate the cluster after you are done with it, the bill can be quite large. Terminating a cluster will stop all jobs and any code and/or resources you uploaded to the cluster will be lost. Terminating the cluster is easy, in the cluster details page, just click on the "<strong>Terminate</strong>" button.</p>
 
                     <a href="#" class="image fit"><img src="images/getting_started/emr-6-1.png" alt="Terminate" title="Terminate"/></a>
