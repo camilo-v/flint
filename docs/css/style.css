@@ -143,6 +143,7 @@
 	samp {
 		font-family: "Courier", monospace;
 		quotes: "'" "'";
+		background: #dadee0;
 	}
 	samp:before {
 		content: open-quote;
