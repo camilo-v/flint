@@ -82,7 +82,7 @@
                     <h2>Deployment, Configuration, and Installation</h2>
                     <p>Flint runs on <a href="https://spark.apache.org" target="_blank">Spark</a>, and the current version is tuned for <a href="https://aws.amazon.com/emr/" target="_blank">Amazon's EMR service</a>. While the Amazon-specific code is minimal, we are not yet supporting Spark clusters outside of EMR. A Flint project consists of multiple pieces (outlined below), and you will need to stage the genome reference assets and machine configurations before launching a cluster. The pieces are:</p>
                     <ol>
-                        <li><strong><a href="#assets">Asset Staging: </a></strong> Upload the bacterial reference genomes to an accessible data bucket in Amazon's S3 storage, along with configuration scripts for the cluster.</li>
+                        <li><strong><a href="#assets">Asset Staging: </a></strong> Upload the bacterial reference genomes to an accessible data bucket in Amazon's S3 storage, along with two configuration scripts for the cluster.</li>
                         <li><strong><a href="#emr">EMR Cluster Launch: </a></strong> Launch an EMR cluster that will be configured with bootstrap actions and steps that you staged in the previous step.</li>
                         <li><strong><a href="#access">Accessing the Cluster:</a></strong> Connect to the cluster that you just created. You can connect through SSH or through a SFTP client.</li>
                         <li><strong><a href="#source">Source Code Deployment: </a></strong> Upload the main Flint python script, along with utilities for copying the reference shards into each cluster node, and a template of the 'spark-submit' resource file, into the cluster's master node.</li>
@@ -98,7 +98,9 @@
                     <h2><a name="assets"></a>Asset Staging</h2>
                     <p>This section involves two (2) parts: the upload of the bacterial genomes into a location that is accessible by the worker machines in the cluster, and the upload of two configuration scripts that the EMR launch procedure will use to provision the cluster.</p>
 
-                    <h3><a name="bacterial_genomes"></a>Partitioned Bacterial Genomes</h3>
+                    <!-- -------------------------- Partitioned Bacterial Genomes ------------------------------ -->
+                    <br>
+                    <h3><a name="bacterial_genomes"></a>1. Partitioned Bacterial Genomes 📦📦</h3>
                     <p>
                         The bacterial genomes are the largest asset that you will upload to your S3 bucket. <a href="https://aws.amazon.com/s3/pricing/">S3 storage prices</a> change, so please check that the bucket you are uploading to has the capacity to host the genome collection. In the Flint publication, we used a bacterial genome collection from <a href="https://bacteria.ensembl.org/index.html" title="Ensembl Bacterial" target="_blank">Ensembl (v.41)</a> that was partitioned into 64 shards, with each shard going to a single machine in the cluster. We also provide genome collections for <a href="https://bacteria.ensembl.org/index.html" title="Ensembl Bacterial" target="_blank">Ensembl (v.41)</a> partitioned into 128, 256, and 512 shards, which can be used in clusters of those sizes.
                     </p>
@@ -107,6 +109,8 @@
                         Each shard collection contains subdirectories that contain the corresponding <a href="http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#small-and-large-indexes" target="_blank" title="Bowtie2 Index">Bowtie2 index files</a>. You will need to copy all the shards for a given cluster size (64, 128, etc.) into an S3 bucket that is accessible to your EMR cluster, i.e., to an S3 bucket in your account. There is a script in Flint that will then copy the shards into each worker node from your S3 bucket. This only needs to be done once per cluster setup.
                     </p>
 
+                    <!-- ------------------------------------- Downloading ------------------------------------- -->
+                    <br>
                     <h4>Downloading ⬇️</h4>
                     <p>
                         There are a couple of ways of getting the genomes into your S3 bucket: you can use an SFTP client (<a href="https://filezilla-project.org" title="FileZilla" target="_blank">FileZilla</a> , <a href="https://panic.com/transmit/" title="Transmit" target="_blank">Panic's Transmit</a>, etc.) to download the genomes into your local machine and then upload them to your bucket &mdash; this is not efficient, or recommended, as you will be downloading a lot of data. Alternatively, you can use the <a href="https://aws.amazon.com/cli/" target="_blank" title="AWS CLI">AWS CLI</a> utilitiy to sync the genomes from our buckets. The partitioned genome collections are available below:
@@ -132,9 +136,9 @@ aws s3 sync s3://flint-bacterial-genomes/ensembl/41/indicespartitions_64 s3://my
                     </p>
 
 
-                    <br>
+                    <br><br>
 
-                    <h3><a name="cluster_configuration"></a>Cluster Configuration</h3>
+                    <h3><a name="cluster_configuration"></a>2. Cluster Configurations</h3>
                     <p>
                         The cluster is configured with two (2) scripts that are provided to the EMR service when a cluster is created. These two files need to be uploaded to an S3 bucket that is accessible to EMR so that you can select them in the cluster creation step.
                     </p>
@@ -142,6 +146,9 @@ aws s3 sync s3://flint-bacterial-genomes/ensembl/41/indicespartitions_64 s3://my
                     <p> The first script is a JSON file that is used in the first step of the cluster creation, "<a href="#software_steps" title="Software and Steps">Software and Steps</a>", below &mdash; this is the JSON file that you specify in the "Software Settings" part. The second is a BASH file that defines what software will be loaded into each machine of the cluster (master and worker nodes). The BASH script defines environment variables, sets up the required directories, and loads the <a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml" target="_blank">Bowtie2</a> aligner. This BASH file is used the "<a href="#general_cluster_settings" title="General Cluster Settings">General Cluster Settings</a>" steps below, and is the file that is pointed to by the "Bootstrap Actions" in the configuration.
                     </p>
 
+
+                    <!-- ------------------------------------- EMR Software Settings --------------------------- -->
+                    <br>
                     <h4><a name="emr_json_software_settings"></a>EMR JSON Software Setting</h4>
                     <p>The EMR software settings are simple, and they specify the particulars that will be used to spin-up a Spark cluster.</p>
                     <script src="https://gist.github.com/camilo-v/710dd9d93eea2d77a76243ce35a0ed35.js"></script>
