@@ -140,6 +140,17 @@
 		white-space: pre-wrap;
 	}
 
+	samp {
+		font-family: "Courier", monospace;
+		quotes: "'" "'";
+	}
+	samp:before {
+		content: open-quote;
+	}
+	samp:after {
+		content: close-quote;
+	}
+
 	pre {
 		-webkit-overflow-scrolling: touch;
 		font-family: "Courier New", monospace;
