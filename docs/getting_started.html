@@ -83,11 +83,11 @@
                     <h2>Deployment, Configuration, and Installation</h2>
                     <p>Flint runs on <a href="https://spark.apache.org" target="_blank">Spark</a>, and the current version is tuned for <a href="https://aws.amazon.com/emr/" target="_blank">Amazon's EMR service</a>. While the Amazon-specific code is minimal, we are not yet supporting Spark clusters outside of EMR. A Flint project consists of multiple pieces (outlined below), and you will need to stage the genome reference assets and machine configurations before launching a cluster. The pieces are:</p>
                     <ol>
-                        <li><strong><a href="#assets">Asset Staging: </a></strong> Upload the bacterial reference genomes to an accessible data bucket in Amazon's S3 storage, along with two configuration scripts for the cluster.</li>
-                        <li><strong><a href="#emr">EMR Cluster Launch: </a></strong> Launch an EMR cluster that will be configured with bootstrap actions and steps that you staged in the previous step.</li>
-                        <li><strong><a href="#access">Accessing the Cluster:</a></strong> Connect to the cluster that you just created. You can connect through SSH or through a SFTP client.</li>
-                        <li><strong><a href="#source">Source Code Deployment: </a></strong> Upload the main Flint python script, along with utilities for copying the reference shards into each cluster node, and a template of the <samp>spark-submit</samp> resource file, into the cluster's master node.</li>
-                        <li><strong><a href="#terminate">Terminating a Cluster:</a></strong></strong> Any cloud provider will charge you for the time you use, so its critical that you terminate the clusters after you are done using them.</li>
+                        <li><strong><a href="#assets">✅ Asset Staging: </a></strong> Upload the bacterial reference genomes to an accessible data bucket in Amazon's S3 storage, along with two configuration scripts for the cluster.</li>
+                        <li><strong><a href="#emr">🎛 EMR Cluster Launch: </a></strong> Launch an EMR cluster that will be configured with bootstrap actions and steps that you staged in the previous step.</li>
+                        <li><strong><a href="#access">📡 Accessing the Cluster:</a></strong> Connect to the cluster that you just created. You can connect through SSH or through a SFTP client.</li>
+                        <li><strong><a href="#source">⚙️ Source Code Deployment: </a></strong> Upload the main Flint python script, along with utilities for copying the reference shards into each cluster node, and a template of the <samp>spark-submit</samp> resource file, into the cluster's master node.</li>
+                        <li><strong><a href="#terminate">🛑 Terminating a Cluster:</a></strong></strong> Any cloud provider will charge you for the time you use, so its critical that you terminate the clusters after you are done using them.</li>
                     </ol>
                     <p>The following section(s) contain details on each of the above. If you have any questions, comments, and/or queries, please <a href="https://github.com/camilo-v/flint" title="Flint Project" target="_blank">get in touch</a>.</p>
                     <hr class="major" />
@@ -96,7 +96,7 @@
 
                 <!-- ----------------------------------------- Asset Staging -------------------------------------- -->
                 <section>
-                    <h2><a name="assets" class="anchor"></a>Asset Staging</h2>
+                    <h2><a name="assets" class="anchor"></a>✅ Asset Staging</h2>
                     <p>This section involves two (2) parts, briefly described below and in detail after:
                         <ol>
                             <li>Upload of the partitioned bacterial genomes collection into a location (in AWS) that is accessible by the worker machines in the EMR cluster.</li>
@@ -108,7 +108,7 @@
 
                     <!-- -------------------------- Partitioned Bacterial Genomes ------------------------------ -->
                     <br>
-                    <h3><a name="bacterial_genomes" class="anchor"></a>1. Partitioned Bacterial Genomes 📦📦</h3>
+                    <h3><a name="bacterial_genomes" class="anchor"></a>1. Partitioned Bacterial Genomes</h3>
                     <p>
                         The bacterial genomes are the largest asset that you will deposit in your S3 bucket. In the Flint publication, we used a bacterial genome collection from <a href="https://bacteria.ensembl.org/index.html" title="Ensembl Bacterial" target="_blank">Ensembl (v.41)</a> that was partitioned into 64 shards, with each shard going to a single machine in the cluster. Below we provide genome collections for <a href="https://bacteria.ensembl.org/index.html" title="Ensembl Bacterial" target="_blank">Ensembl (v.41)</a> partitioned into 128, 256, and 512 shards, which can be used in <a href="https://spark.apache.org" target="_blank">Spark</a> clusters of those sizes.
                     </p>
@@ -199,7 +199,7 @@ SOURCE_BUCKET_NAME="s3-bucket-name"
 
                 <!-- --------------------------------- Cluster Launch ---------------------------------- -->
                 <section>
-                    <h2><a name="emr" class="anchor"></a>EMR Cluster Launch</h2>
+                    <h2><a name="emr" class="anchor"></a>🎛 EMR Cluster Launch</h2>
                     <p>
                         Flint is currently optimized for running on AWS, and on the EMR service specifically. You will need an AWS account to launch an EMR cluster, so familiarity with AWS and EMR is ideal. If you are not familiar with AWS, you can start with <a href="https://aws.amazon.com/getting-started/" target="_blank"> this tutorial</a>. Please note that the following steps, and screenshots, all assume that you have successfully signed into your <a href="https://aws.amazon.com/console/" target="_blank">AWS Management Console</a>.
                     </p>
@@ -299,7 +299,7 @@ SOURCE_BUCKET_NAME="s3-bucket-name"
                 <!-- ---------------------------------- Accessing the Cluster ------------------------------------- -->
 
                 <section>
-                    <h2><a name="access" class="anchor"></a>Accessing the Cluster</h2>
+                    <h2><a name="access" class="anchor"></a>📡 Accessing the Cluster</h2>
                     <p>Once you have successfully launched the cluster you can connect to it via <strong>SSH</strong> or <strong>SFTP</strong> to launch jobs and upload files respectively. The sections below outline how to connect to the Master node, and also how to access diagnostic and monitoring dashboards.</p>
 
                     <br>
@@ -357,16 +357,30 @@ SOURCE_BUCKET_NAME="s3-bucket-name"
 
                 <!-- ---------------------------------- Source Code Deployment ------------------------------------ -->
                 <section>
-                    <h2><a name="source" class="anchor"></a>Source Code Deployment</h2>
+                    <h2><a name="source" class="anchor"></a>⚙️ Source Code Deployment</h2>
                     <p>
-
+                        At this point you have launched a cluster in EMR, and have a partitioned genome collection in an S3 bucket that is accessible to the cluster. The next step is to upload the Flint source code to the cluster so that you can start running jobs. If you have not done so already, go ahead an grab a copy of the <a href="https://github.com/camilo-v/flint" title="Source Code" target="_blank">Flint source code in GitHub</a>.
                     </p>
+                    <p>
+                        The code, all of it, will need to be uploaded to the root directory of the <samp>hadoop</samp> user in the cluster. You can review the section <a href="#access" title="Accessing the Cluster">Accessing the Cluster</a> for instructions on how to connect to your cluster.
+                    </p>
+                    <p>
+                        Once the source code has been uploaded, you are ready to start running jobs. The <a href="documentation.html" title="Documentation">documentation page</a> has example code, details on how to run Flint job, as well as API references of the relevant functions. You can also review the basics on <a href="https://spark.apache.org/docs/latest/submitting-applications.html" title="Spark, Submitting Applications" target="_blank">Submitting Applications</a> in Spark.
+                    </p>
+
+                    <p>
+                        <a href="documentation.html" title="Documentation">Read Flint Documentation &rightarrow;</a>
+                    </p>
+
                 </section>
 
+                <hr class="major" />
+
+                <br>
 
                 <!-- ---------------------------------------- Terminating ---------------------------------------- -->
                 <section>
-                    <h2><a name="terminate" class="anchor"></a>Terminating a Cluster</h2>
+                    <h2><a name="terminate" class="anchor"></a>🛑 Terminating a Cluster</h2>
                     <p>In AWS, Amazon <a href="https://aws.amazon.com/emr/pricing/" target="_blank">charges you for the time</a> you use the cluster, and if you do not terminate the cluster after you are done with it, the bill can be quite large. Terminating a cluster will stop all jobs and any code and/or resources you uploaded to the cluster will be lost. Terminating the cluster is easy, in the cluster details page, just click on the "<strong>Terminate</strong>" button.</p>
 
                     <a href="#" class="image fit"><img src="images/getting_started/emr-6-1.png" alt="Terminate" title="Terminate"/></a>
