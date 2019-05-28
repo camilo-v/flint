@@ -65,7 +65,7 @@
                     <p>Flint is a metagenomics profiling pipeline that is built on top of the <a href="https://spark.apache.org" target="_blank">Apache Spark</a> framework, and is designed for fast profiling of metagenomic samples against a large collection of reference genomes. Flint takes advantage of Spark's built-in parallelism and streaming engine architecture to quickly map reads against a large reference collection of bacterial genomes.</p>
 
                     <h3>Required 🚩</h3>
-                    <p>The Flint software is designed to run on <a href="https://aws.amazon.com" title="Amazon Web Services" target="_blank">AWS</a>, and requires a couple of assets to be <em>in place</em> before you can run it. Following is a list of the tools &amp; items that you will need</p>
+                    <p>The Flint software is designed to run on <a href="https://aws.amazon.com" title="Amazon Web Services" target="_blank">AWS</a>, and requires a couple of assets to be <em>in place</em> before you can run it. Following is a list of the tools &amp; items that you will need in order to setup and run a Flint cluster:</p>
 
                     <ol>
                         <li>An <a href="https://aws.amazon.com" title="Amazon Web Services" target="_blank">AWS Account</a>.</li>
@@ -97,43 +97,65 @@
                 <!-- ----------------------------------------- Asset Staging -------------------------------------- -->
                 <section>
                     <h2><a name="assets" class="anchor"></a>Asset Staging</h2>
-                    <p>This section involves two (2) parts: the upload of the bacterial genomes into a location that is accessible by the worker machines in the cluster, and the upload of two configuration scripts that the EMR launch procedure will use to provision the cluster.</p>
+                    <p>This section involves two (2) parts, briefly described below and in detail after:
+                        <ol>
+                            <li>Upload of the partitioned bacterial genomes collection into a location (in AWS) that is accessible by the worker machines in the EMR cluster.</li>
+                            <li>
+                                Upload of two configuration scripts that the EMR launch procedure will use to provision the cluster.
+                            </li>
+                        </ol>
+                    </p>
 
                     <!-- -------------------------- Partitioned Bacterial Genomes ------------------------------ -->
                     <br>
                     <h3><a name="bacterial_genomes" class="anchor"></a>1. Partitioned Bacterial Genomes 📦📦</h3>
                     <p>
-                        The bacterial genomes are the largest asset that you will upload to your S3 bucket. <a href="https://aws.amazon.com/s3/pricing/">S3 storage prices</a> change, so please check that the bucket you are uploading to has the capacity to host the genome collection. In the Flint publication, we used a bacterial genome collection from <a href="https://bacteria.ensembl.org/index.html" title="Ensembl Bacterial" target="_blank">Ensembl (v.41)</a> that was partitioned into 64 shards, with each shard going to a single machine in the cluster. We also provide genome collections for <a href="https://bacteria.ensembl.org/index.html" title="Ensembl Bacterial" target="_blank">Ensembl (v.41)</a> partitioned into 128, 256, and 512 shards, which can be used in clusters of those sizes.
+                        The bacterial genomes are the largest asset that you will deposit in your S3 bucket. In the Flint publication, we used a bacterial genome collection from <a href="https://bacteria.ensembl.org/index.html" title="Ensembl Bacterial" target="_blank">Ensembl (v.41)</a> that was partitioned into 64 shards, with each shard going to a single machine in the cluster. Below we provide genome collections for <a href="https://bacteria.ensembl.org/index.html" title="Ensembl Bacterial" target="_blank">Ensembl (v.41)</a> partitioned into 128, 256, and 512 shards, which can be used in <a href="https://spark.apache.org" target="_blank">Spark</a> clusters of those sizes.
                     </p>
 
                     <p>
-                        Each shard collection contains subdirectories that contain the corresponding <a href="http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#small-and-large-indexes" target="_blank" title="Bowtie2 Index">Bowtie2 index files</a>. You will need to copy all the shards for a given cluster size (64, 128, etc.) into an S3 bucket that is accessible to your EMR cluster, i.e., to an S3 bucket in your account. There is a script in Flint that will then copy the shards into each worker node from your S3 bucket. This only needs to be done once per cluster setup.
+                        ⚠️ <strong>Note:</strong> <a href="https://aws.amazon.com/s3/pricing/">S3 storage prices</a> change, so please check that the bucket you are uploading to has the capacity to host the genome collection.
+                    </p>
+
+                    <p>
+                        Each partitioned collection shard includes subdirectories that contain the corresponding <a href="http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#small-and-large-indexes" target="_blank" title="Bowtie2 Index">Bowtie2 index files (*.bt2)</a>. You will need to copy all the shards for a given cluster size (64, 128, etc.) into an S3 bucket that is accessible to your EMR cluster, i.e., to an S3 bucket in your account. There is a script in Flint that will then copy the shards into each worker node from your S3 bucket. This only needs to be done once per cluster setup.
                     </p>
 
                     <!-- ------------------------------------- Downloading ------------------------------------- -->
                     <br>
-                    <h4>Downloading ⬇️</h4>
+                    <h4>Downloading within AWS ⬇️</h4>
                     <p>
-                        There are a couple of ways of getting the genomes into your S3 bucket: you can use an SFTP client (<a href="https://filezilla-project.org" title="FileZilla" target="_blank">FileZilla</a> , <a href="https://panic.com/transmit/" title="Transmit" target="_blank">Panic's Transmit</a>, etc.) to download the genomes into your local machine and then upload them to your bucket &mdash; this is not efficient, or recommended, as you will be downloading a lot of data. Alternatively, you can use the <a href="https://aws.amazon.com/cli/" target="_blank" title="AWS CLI">AWS CLI</a> utilitiy to sync the genomes from our buckets. The partitioned genome collections are available below:
+                        You will need to use the <a href="https://aws.amazon.com/cli/" target="_blank" title="AWS CLI">AWS CLI</a> utilitiy to sync the genomes from our buckets into a bucket in your account. The collections are available below:
                     </p>
 
                     <ol>
-                        <li><a href="#" title="64" target="_blank">64</a></li>
-                        <li><a href="#" title="128" target="_blank">128</a></li>
-                        <li><a href="#" title="256" target="_blank">256</a></li>
-                        <li><a href="#" title="512" target="_blank">512</a></li>
+                        <li><a href="https://s3.amazonaws.com/flint-bacterial-genomes/ensembl/41/indices/partitions_64" title="64" target="_blank">64</a>: <samp>s3://flint-bacterial-genomes/ensembl/41/indices/partitions_64</samp></li>
+                        <li><a href="https://s3.amazonaws.com/flint-bacterial-genomes/ensembl/41/indices/partitions_128" title="128" target="_blank">128</a>: <samp>s3://flint-bacterial-genomes/ensembl/41/indices/partitions_128</samp></li>
+                        <li><a href="https://s3.amazonaws.com/flint-bacterial-genomes/ensembl/41/indices/partitions_256" title="256" target="_blank">256</a>: <samp>s3://flint-bacterial-genomes/ensembl/41/indices/partitions_256</samp></li>
+                        <li><a href="https://s3.amazonaws.com/flint-bacterial-genomes/ensembl/41/indices/partitions_512" title="512" target="_blank">512</a>: <samp>s3://flint-bacterial-genomes/ensembl/41/indices/partitions_512</samp></li>
                     </ol>
 
                     <p>
-                        You can also sync the genomes using <a href="https://aws.amazon.com/cli/" target="_blank" title="AWS CLI">AWS CLI</a> with the example command below, just substitute <samp>my-bucket</samp> with the path of your S3 bucket.
+                        An example <samp>sync</samp> command to copy the genomes using <a href="https://aws.amazon.com/cli/" target="_blank" title="AWS CLI">AWS CLI</a> is below, you just have to substitute <samp>my-bucket</samp> with the path of your S3 bucket:
                     </p>
 
                     <code class="prettyprint lang-bsh">
-aws s3 sync s3://flint-bacterial-genomes/ensembl/41/indices/partitions_64 s3://my-bucket/partitions_64
+aws s3 sync s3://flint-bacterial-genomes/ensembl/41/indices/partitions_64 s3://my-bucket/partitions_64 --request-payer requester
                     </code>
 
                     <p>
+                        ⚠️ As always with AWS, there is a cost for transferring data. Your AWS account will be charged for the cost of transferring the genomes into your bucket, as specified by <samp>--request-payer requester</samp>.
+                    </p>
+
+                    <p>
                         ⚠️ Do note that the syncing process can take some time, so make sure that when you issue the <samp>sync</samp> command, the terminal window in which you do so remains open, or you <a href="https://serverfault.com/questions/41959/how-to-send-jobs-to-background-without-stopping-them" title="Background Jobs" target="_blank">send the job to the background</a>.
+                    </p>
+
+                    <br>
+
+                    <h4>Downloading with SFTP ⬇️</h4>
+                    <p>
+                        Due to the size of the partitioned collections, we are not supporting SFTP transfer at this time.
                     </p>
 
 
