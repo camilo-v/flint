@@ -68,9 +68,12 @@ def main(args):
     #
     parser = argparse.ArgumentParser()
     parser.add_argument("--shards", required=True, type=int, help="Number of Bowtie2 Index Shards.")
+    parser.add_argument("--bowtie2_index", required=True, type=str, help="S3 Path of bucket.")
+    parser.add_argument("--verbose", required=False, action="store_true", help="Wordy print statements.")
     args = parser.parse_args(args)
 
-    index_location_s3 = "s3://your-bucket-name/ensembl/41/indices/partitions_64"
+    index_location_s3 = args.bowtie2_index
+    index_location_s3.strip()
     number_of_index_shards = args.shards
 
     #
@@ -78,6 +81,9 @@ def main(args):
     #
     APP_NAME = "Index_Provisioning"
     conf = (SparkConf().setAppName(APP_NAME))
+    conf.set("spark.default.parallelism", int(number_of_index_shards))
+    conf.set("spark.executor.memoryOverhead", "1G")
+    conf.set("conf spark.locality.wait", "1s")
 
     print("[ " + time.strftime('%d-%b-%Y %H:%M:%S', time.localtime()) + " ] ")
     print("[ " + time.strftime('%d-%b-%Y %H:%M:%S', time.localtime()) + " ] Configuring Spark...")
@@ -132,23 +138,23 @@ def main(args):
     number_of_acknowledgements = len(acknowledge_list)
 
     print("[ " + time.strftime('%d-%b-%Y %H:%M:%S', time.localtime()) + " ] ")
-    print("[ " + time.strftime('%d-%b-%Y %H:%M:%S', time.localtime()) + " ] No. of Workers that signaled: " +
+    print("[ " + time.strftime('%d-%b-%Y %H:%M:%S', time.localtime()) + " ] No. of Workers that acknowledged: " +
           str(number_of_acknowledgements))
     print("[ " + time.strftime('%d-%b-%Y %H:%M:%S', time.localtime()) + " ] ")
 
-    for ack in acknowledge_list:
-        print(ack)
+    if args.verbose:
+        for ack in acknowledge_list:
+            print(ack)
 
-    print("[ " + time.strftime('%d-%b-%Y %H:%M:%S', time.localtime()) + " ] ")
-    print("[ " + time.strftime('%d-%b-%Y %H:%M:%S', time.localtime()) + " ] Duplicate Worker IPs:")
+        print("[ " + time.strftime('%d-%b-%Y %H:%M:%S', time.localtime()) + " ] ")
+        print("[ " + time.strftime('%d-%b-%Y %H:%M:%S', time.localtime()) + " ] Duplicate Worker IPs:")
 
-    print [item for item, count in collections.Counter(acknowledge_list).items() if count > 1]
+        print [item for item, count in collections.Counter(acknowledge_list).items() if count > 1]
 
 
     end_time = time.time()
     run_time = end_time - start_time
 
-    print("[ " + time.strftime('%d-%b-%Y %H:%M:%S', time.localtime()) + " ] ")
     print("[ " + time.strftime('%d-%b-%Y %H:%M:%S', time.localtime()) + " ]")
     print("[ " + time.strftime('%d-%b-%Y %H:%M:%S', time.localtime()) + " ] Index Copy Time: " +
           "" + str(timedelta(seconds=run_time)) + "")
