@@ -1,0 +1,25 @@
+{
+  "partition_size": "64",
+  "bowtie2_path": "/home/hadoop/apps/bowtie2-2.3.4.1-linux-x86_64",
+  "bowtie2_index_path": "/mnt/bio_data/index",
+  "bowtie2_index_name": "ensembl_v41",
+  "bowtie2_threads": "6",
+  "annotations": {
+    "bucket": "bucket-name",
+    "path": "path/to/ensembl/annotations/annotations_ensembl.txt"
+  },
+  "samples":[
+    {
+    	"id": "sample-id",
+    	"sample_format": "tab5",
+        "sample_type": "paired",
+        "streaming_app_name": "flint",
+        "stream_name": "flint_tab5_stream",
+        "endpoint_url": "kinesis.us-east-1.amazonaws.com",
+        "region_name": "us-east-1",
+        "batch_duration": "0.25",
+        "output_dir": "/path/to/flint/output-dir",
+        "number_of_shards": "2"
+    }
+  ]
+}
