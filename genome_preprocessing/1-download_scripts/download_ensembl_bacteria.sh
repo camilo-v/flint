@@ -9,7 +9,7 @@
 #   Please cite the author(s) in any work or product based on this material.
 #
 #   OBJECTIVE:
-#	Download collection of genome FASTA files from the Ensembl Bacteria project website 
+#	Download collection of genome FASTA files from the Ensembl Bacteria project website
 #	("http://bacteria.ensembl.org").
 #
 #   NOTES:
@@ -32,7 +32,7 @@
 # --cut-dirs    defines what directory structure to keep or omit, from host onwards
 # -r            Recursively download the directory.
 # -nH           Disable generation of host-prefixed directories.
-# --no-parent 	Do not ever ascend to the parent directory when retrieving recursively. 
+# --no-parent 	Do not ever ascend to the parent directory when retrieving recursively.
 
 # ----------------------------------- Import variables ----------------------------------------------------------------
 # The script imports config file only if the file is a source of execution.
@@ -41,35 +41,39 @@
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
 	source ../config.cfg
 fi
-# ---------------------------------------------------------------------------------------------------------------------
 
-FTP_LOCATION="ftp://ftp.ensemblgenomes.org/pub/release-"$ENSEMBL_VERSION"/bacteria/fasta/"
+echo ""
+echo "[" `date '+%m/%d/%y %H:%M:%S'` "]"
+echo "[" `date '+%m/%d/%y %H:%M:%S'` "] Starting Downloads..."
+echo "[" `date '+%m/%d/%y %H:%M:%S'` "]"
 
-OUTPUT_DIR=$BASE_DIR"/fasta"
-mkdir -p $OUTPUT_DIR
+FTP_LOCATION="ftp://ftp.ensemblgenomes.org/pub/release-"${ENSEMBL_VERSION}"/bacteria/fasta/"
+
+OUTPUT_DIR=${BASE_DIR}"/fasta"
+mkdir -p ${OUTPUT_DIR}
 
 ACCEPT_PATTERN_DNA='*.dna.toplevel.fa.gz'
-ACCEPT_PATTERN_CDNA='*.cdna.all.fa.gz'
-ACCEPT_PATTERN_NCRNA='*.ncrna.fa.gz'
-ACCEPT_PATTERN_PEP='*.pep.all.fa.gz'
 
+echo ${FTP_LOCATION}
 
-
-echo $FTP_LOCATION
-
-for collection in $(curl -l $FTP_LOCATION); do
-	#	Download the DNA directories
-	wget --accept=$ACCEPT_PATTERN_DNA -r -nH --cut-dirs=6 --no-parent -P $OUTPUT_DIR $FTP_LOCATION$collection
-
-	#	Download the CDNA directoies
-	# wget --accept=$ACCEPT_PATTERN_CDNA -r -nH --cut-dirs=6 --no-parent -P $OUTPUT_DIR $FTP_LOCATION
-
-	#	Download the NCRNA directories
-	# wget --accept=$ACCEPT_PATTERN_NCRNA -r -nH --cut-dirs=6 --no-parent -P $OUTPUT_DIR $FTP_LOCATION
-
-	#	Download the Peptide directories
-	# wget --accept=$ACCEPT_PATTERN_PEP -r -nH --cut-dirs=6 --no-parent -P $OUTPUT_DIR $FTP_LOCATION
+for COLLECTION in $(curl -l $FTP_LOCATION)
+do
+	#   Download the DNA directories
+    #
+    #   --accept      	Defines the file types to focus on
+    #   --cut-dirs    	Defines what directory structure to keep or omit, from host onwards
+    #   -r            	Recursively download the directory.
+    #   -nH           	Disable generation of host-prefixed directories.
+    #   --no-parent   	Do not ever ascend to the parent directory when retrieving recursively.
+    #   --mirror      	Among other things, it makes downloads lighting fast!
+    #	--no-clobber  	Skip Downloading if files exist.
+    #	--timestamping	Don't re-retrieve files unless newer than local.
+    #
+	wget --accept=${ACCEPT_PATTERN_DNA} -r -nH --cut-dirs=7 --no-parent --quiet -P ${OUTPUT_DIR} ${FTP_LOCATION}${COLLECTION}
 
 done
 
 
+echo "[" `date '+%m/%d/%y %H:%M:%S'` "]"
+echo "[" `date '+%m/%d/%y %H:%M:%S'` "] Downloads Done."
+echo ""
