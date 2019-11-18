@@ -47,7 +47,7 @@ fi
 
 WORKING_DIR=$BASE_DIR"/fasta"
 
-for aFile in `find $WORKING_DIR -wholename */dna/*.fa.gz`
+for aFile in `find $WORKING_DIR -wholename /*.fa.gz`
 {
 	echo "[" `date '+%m/%d/%y %H:%M:%S'` "] File: "$aFile
 
