@@ -46,7 +46,7 @@ output=args.output
 # 1) Read sequence headers
 all_assemblies_df = pd.read_csv(SEQUENCE_HEADERS_PATH, sep="_", header=None, dtype=str,
                                  names=["assembly_accession", "seq_name", "start", "end", "taxID"])
-
+all_assemblies_df["assembly_accession"] = all_assemblies_df["assembly_accession"].apply(lambda x: x.replace(">", ""))
 # 2) Read taxtree
 taxtree_df = pd.read_table(TAXTREE_PATH, dtype=str)
 
