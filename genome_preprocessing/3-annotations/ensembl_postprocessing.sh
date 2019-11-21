@@ -44,9 +44,9 @@ ANNOTATION_FILE=$ANNOTATION_DIR"/ensembl_v"$ENSEMBL_VERSION"_lineage.tsv"
 TMP_ANNOTATION=$ANNOTATION_DIR"/tmp_annotation.tsv"
 
 # FASTA file
-FASTA=$BASE_DIR"/indices/ensembl_bacterial_v"$ENSEMBL_VERSION"-clean.fasta"
+FASTA=$BASE_DIR"/fasta-clean"
 # File with all FASTA headers
-SEQ_HEADERS=$BASE_DIR"/annotations/ensembl-seq_headers.txt"
+SEQ_HEADERS=$BASE_DIR"/annotations/headers-"$ENSEMBL_VERSION".txt"
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Step 1 - Adding the correct strain name column
@@ -66,7 +66,7 @@ python ensembl_postprocessing_python/add_strain_column.py --lineage_file $ANNOTA
  							--output $TMP_ANNOTATION
 
 # c) Remove original lineage file:
-rm $ANNOTATION_FILE
+#rm $ANNOTATION_FILE
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Step 2 - Calculate the length of each genome and add corresponding column to annotation file
@@ -77,11 +77,13 @@ echo "[" `date '+%m/%d/%y %H:%M:%S'` "] Step 2 - Calculate the length of each ge
 # Therefore, they are useful for calculating the length of genomes
 
 # a) Create file with all FASTA sequence headers:
-
 if [ ! -f $SEQ_HEADERS ]; then
-	for name in $(grep ">" $FASTA); do
-	echo "${name//>}" >> $SEQ_HEADERS
-done
+	for filename in $FASTA/*.fa; do
+        for name in $(grep "> $filename" ); do
+        	echo "${name//>}"
+        	echo "${name//>}" >> $SEQ_HEADERS
+    	done
+	done
 fi
 
 # b) Run python script to calculate the length
