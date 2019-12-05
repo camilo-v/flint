@@ -98,8 +98,8 @@ python3 $taxIDtoLineage_path"/taxIDtoLineage.py" --input $OUTPUT_DIR"/species_En
                        --lineage_file $taxIDtoLineage_path"/all_lineages.csv" \
                        --output $OUTPUT_TAXONOMY \
                        --tax_col 3 \
-                       --include_columns "4,5" \
-                       --include_columns_names "assembly,assembly_accession" \
+                       --include_columns "0,4,5" \
+                       --include_columns_names "strain,assembly,assembly_accession" \
                        --email $EMAIL
 
 echo "[" `date '+%m/%d/%y %H:%M:%S'` "]"

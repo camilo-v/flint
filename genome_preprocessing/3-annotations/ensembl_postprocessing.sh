@@ -39,6 +39,8 @@ SPECIES_METADATA=$ANNOTATION_DIR"/assembly_summary.txt"
 
 #the main lineage file that we want to change
 ANNOTATION_FILE=$ANNOTATION_DIR"/ensembl_v"$ENSEMBL_VERSION"_lineage.tsv"
+ANNOTATION_FINAL=$ANNOTATION_DIR"/ensembl_v"$ENSEMBL_VERSION"_final.tsv"
+
 
 # Temporary annotation file to store the changes:
 TMP_ANNOTATION=$ANNOTATION_DIR"/tmp_annotation.tsv"
@@ -90,7 +92,7 @@ fi
 
 python ensembl_postprocessing_python/add_length_to_annotation.py --lineage_file $TMP_ANNOTATION \
 																--sequence_headers $SEQ_HEADERS \
-																--output $ANNOTATION_FILE
+																--output $ANNOTATION_FINAL
 if [ ! -f $ANNOTATION_FILE ]; then
 	rm $TMP_ANNOTATION
 fi

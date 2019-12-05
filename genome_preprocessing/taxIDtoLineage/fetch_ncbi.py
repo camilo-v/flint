@@ -115,7 +115,7 @@ def get_lineage_file(tax_file, ranks, tax_col, include_columns, include_columns_
                         taxID = row[tax_col]
                         #assign taxonomic tree
                         list_rank = ncbi_query(taxID, ranks)
-                    list_to_write = [row[x].strip().strip('-') for x in col_list] + [row[tax_col]] + list_rank
+                    list_to_write = [row[tax_col]] + [row[x].strip().strip('-') for x in col_list] + list_rank
                     write_to_file(output, list_to_write)
                 except urllib.error.HTTPError:
                     print()
