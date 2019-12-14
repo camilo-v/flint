@@ -44,6 +44,8 @@ if __name__ == "__main__":
                         help="Optional. the column numbers from input file to be included in output file. Column numbers should be comma sepparated in string format. Ex. \"1,4\"   ")
     parser.add_argument("--include_columns_names", required=False, type=str,
                         help="Optional. Rename included columns. By default the program uses column names from the input file")
+    parser.add_argument("--use_header", required=False, type=str,
+                        help="Use header in input file or not")
     parser.add_argument("--ranks", required=False, type=str,
                         help='Optional. Specifies which ranks to use with coma sepparator. By default: --ranks superkindom,phylum,class,order,family,species')
     parser.add_argument("--email", required=False, type=str,
@@ -74,6 +76,10 @@ if __name__ == "__main__":
     else:
         input_skiprows=args.input_skiprows
 
+    useHeader='infer'
+    if args.use_header=="False":
+        useHeader=None
+
     # -----------------------------------------------------------------------------------------------------------------------
     #   Read files
     # -----------------------------------------------------------------------------------------------------------------------
@@ -98,7 +104,7 @@ if __name__ == "__main__":
         all_lineage_df =all_lineage_df[lineage_cols]
 
         # Read Target File with Tax IDs
-        target_df = pd.read_table(args.input, skiprows=input_skiprows, index_col=False)
+        target_df = pd.read_table(args.input, skiprows=input_skiprows, index_col=False, header=useHeader)
 
         # Establish desired columns that was specified in --include_columns:
         target_df_names = target_df.columns.values.tolist()
