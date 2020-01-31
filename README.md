@@ -7,7 +7,7 @@ Our computational framework is primarily implemented using the MapReduce model, 
 The current database for running Flint is version 41 from [Ensembl Bacteria][4], but we are currently working on the latest version of [RefSeq][5], which should be available this summer.
 
 ### Publications
-**Valdes**, **Stebliankin**, **Narasimhan** (2019), Large Scale Microbiome Profiling in the Cloud, _ISMB 2019, in review_.
+**Valdes**, **Stebliankin**, **Narasimhan** (2019), Large scale microbiome profiling in the cloud. Bioinformatics, 35(14), i13-i22.
 
 
 
